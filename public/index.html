@@ -1,0 +1,2381 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dream Test XI</title>
+<meta name="description" content="Draft two all-time Test XIs with a friend and watch a five-day Test play out over by over.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap">
+<style>
+:root{color-scheme:light;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+body{margin:0}
+[hidden]{display:none!important}
+/* Layout: scorebook on squared paper. A dark ground scoreboard heads the match; round ball chips are the only round things, everything else is square. */
+:root{
+  --display:'Big Shoulders Display','Oswald','Arial Narrow',sans-serif;
+  --text:'Newsreader','Iowan Old Style',Georgia,serif;
+  --bg:#e7ebe2; --surface:#f5f7f1; --surface2:#dce3d6; --ink:#15211a; --ink2:#52625a; --rule:#c2ccbf;
+  --ball:#a52a24; --on-ball:#ffffff; --field:#2c5f3f; --on-field:#ffffff;
+  --ta:#1e5d85; --on-ta:#ffffff; --tb:#8a5809; --on-tb:#ffffff;
+  --grid:rgba(21,33,26,.055); --focus:#1e5d85;
+  --board:#12221a; --board-ink:#f0f3ea; --board-dim:#9db2a2; --board-rule:#2a4235; --board-ball:#ef6a60;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0d1611; --surface:#14211a; --surface2:#1d2e25; --ink:#e6eee4; --ink2:#9db0a3; --rule:#2a3b31;
+    --ball:#e5645b; --on-ball:#1b0907; --field:#5fae7b; --on-field:#08150d;
+    --ta:#6db3dc; --on-ta:#07131b; --tb:#e2ae4a; --on-tb:#1c1203;
+    --grid:rgba(230,238,228,.04); --focus:#8cc6ea;
+    --board:#08100b; --board-ink:#f0f3ea; --board-dim:#8ea396; --board-rule:#22352a; --board-ball:#ef6a60;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0d1611; --surface:#14211a; --surface2:#1d2e25; --ink:#e6eee4; --ink2:#9db0a3; --rule:#2a3b31;
+  --ball:#e5645b; --on-ball:#1b0907; --field:#5fae7b; --on-field:#08150d;
+  --ta:#6db3dc; --on-ta:#07131b; --tb:#e2ae4a; --on-tb:#1c1203;
+  --grid:rgba(230,238,228,.04); --focus:#8cc6ea;
+  --board:#08100b; --board-ink:#f0f3ea; --board-dim:#8ea396; --board-rule:#22352a; --board-ball:#ef6a60;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background-color:var(--bg);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:28px 28px;color:var(--ink);font:400 16px/1.45 var(--text);-webkit-text-size-adjust:100%}
+button,input{font:inherit;color:inherit}
+h1,h2,h3,p,ul{margin:0}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.app{max-width:1240px;margin:0 auto;padding-block:22px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.muted{color:var(--ink2)}
+
+/* masthead */
+.mast{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:22px}
+.brand{display:flex;gap:14px;align-items:center;min-width:0}
+.ball{color:var(--ball);flex:none}
+.brand h1{font:800 2.1rem/1 var(--display);letter-spacing:.03em;text-transform:uppercase}
+.tag{color:var(--ink2);max-width:60ch;margin-top:4px;text-wrap:balance}
+
+/* buttons */
+.btn{font:700 1.05rem/1 var(--display);letter-spacing:.02em;padding:.7rem 1.1rem;min-height:42px;border:1.5px solid var(--ink);background:transparent;border-radius:2px;cursor:pointer;color:var(--ink)}
+.btn:hover:not(:disabled){background:var(--ink);color:var(--bg)}
+.btn.primary{background:var(--ball);border-color:var(--ball);color:var(--on-ball)}
+.btn.primary:hover:not(:disabled){background:var(--ball);color:var(--on-ball);filter:brightness(1.1)}
+.btn.sm{padding:.45rem .75rem;min-height:36px;font-size:.98rem}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.big{font-size:1.4rem;padding:.9rem 1.6rem;min-height:54px}
+.seg{display:inline-flex;flex-wrap:wrap;border:1.5px solid var(--ink)}
+.seg button{border:0;background:transparent;padding:.5rem .9rem;min-height:38px;font:700 1rem var(--display);cursor:pointer;color:var(--ink)}
+.seg button+button{border-left:1.5px solid var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.seg button.t0[aria-pressed="true"]{background:var(--ta);color:var(--on-ta)}
+.seg button.t1[aria-pressed="true"]{background:var(--tb);color:var(--on-tb)}
+.chk{display:inline-flex;gap:8px;align-items:center;cursor:pointer}
+.chk input{width:18px;height:18px;accent-color:var(--ball)}
+
+/* setup */
+.note{background:var(--surface);border:1px solid var(--rule);padding:10px 14px;margin-bottom:18px}
+.panes{display:flex;gap:0;margin-bottom:16px;border:1.5px solid var(--ink)}
+.panes button{flex:1;min-width:0;border:0;background:transparent;padding:.6rem .4rem;font:700 1rem var(--display);cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.panes button+button{border-left:1.5px solid var(--ink)}
+.panes button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.grid{display:grid;gap:24px}
+.pane{min-width:0}
+.pane h2{font:800 1.5rem/1 var(--display);letter-spacing:.02em}
+@media (min-width:900px){
+  .panes{display:none}
+  .grid{grid-template-columns:minmax(0,1fr) minmax(0,1.2fr) minmax(0,1fr);grid-template-areas:"a pool b" "match match match";align-items:start}
+  .pane-a{grid-area:a}.pane-pool{grid-area:pool}.pane-b{grid-area:b}.pane-match{grid-area:match}
+}
+@media (max-width:899px){
+  .pane{display:none}
+  .paned[data-pane="a"] .pane-a,.paned[data-pane="b"] .pane-b,.paned[data-pane="pool"] .pane-pool,.paned[data-pane="match"] .pane-match{display:block}
+}
+.squad{background:var(--surface);border:1px solid var(--rule);padding:14px 14px 16px}
+.squad-head{display:flex;gap:10px;align-items:center}
+.swatch{width:16px;height:16px;flex:none}
+.swatch.t0{background:var(--ta)}.swatch.t1{background:var(--tb)}
+.tname{font:800 1.7rem/1.1 var(--display);background:transparent;border:0;border-bottom:1.5px dashed var(--rule);width:100%;min-width:0;padding:2px 0;color:var(--ink)}
+.tname:focus{border-bottom-color:var(--ink)}
+.cnt{font:800 1.3rem var(--display);color:var(--ink2);white-space:nowrap;font-variant-numeric:tabular-nums}
+.order-h{margin:12px 0 2px;color:var(--ink2);font-size:.88rem}
+.slots{list-style:none;padding:0}
+.slot{display:grid;grid-template-columns:26px minmax(0,1fr) auto auto;gap:8px;align-items:center;padding:6px 0;border-top:1px solid var(--rule);min-height:50px}
+.slot .no{font:700 1.05rem var(--display);color:var(--ink2);text-align:right}
+.sname{font-weight:600;display:block;overflow-wrap:anywhere}
+.ssub{display:block;font-size:.82rem;color:var(--ink2)}
+.srate{font:800 1.45rem var(--display);font-variant-numeric:tabular-nums}
+.sact{display:flex;gap:3px}
+.iconbtn{width:32px;height:32px;border:1px solid var(--rule);background:var(--bg);cursor:pointer;display:grid;place-items:center;font-size:.78rem;border-radius:2px;color:var(--ink)}
+.iconbtn:hover:not(:disabled){background:var(--ink);color:var(--bg)}
+.iconbtn:disabled{opacity:.3;cursor:default}
+.slot.empty .sname{color:var(--ink2);font-weight:400;font-style:italic}
+.meters{display:grid;gap:6px;margin-top:12px}
+.meter{display:grid;grid-template-columns:64px 1fr 30px;gap:10px;align-items:center;font-size:.9rem}
+.meter .bar{height:8px;background:var(--surface2)}
+.meter .bar i{display:block;height:100%}
+.meter.t0 .bar i{background:var(--ta)}.meter.t1 .bar i{background:var(--tb)}
+.meter b{font:800 1.05rem var(--display);text-align:right}
+.status{margin-top:10px;font-size:.92rem}
+.status.bad{color:var(--ball)}.status.ok{color:var(--field)}
+.squad-acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+
+.pool-head{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:10px}
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.filters button{border:1.5px solid var(--ink);background:transparent;padding:.35rem .7rem;font:700 .95rem var(--display);cursor:pointer;color:var(--ink);border-radius:2px}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.search input{width:100%;padding:.6rem .8rem;border:1.5px solid var(--ink);background:var(--surface);border-radius:2px;margin-bottom:10px;min-height:42px}
+.plist{list-style:none;padding:0;max-height:min(66vh,640px);overflow:auto;border:1px solid var(--rule);background:var(--surface)}
+.prow{display:grid;grid-template-columns:46px minmax(0,1fr) auto;gap:10px;align-items:center;width:100%;text-align:left;padding:8px 12px;background:transparent;border:0;border-bottom:1px solid var(--rule);cursor:pointer;min-height:56px}
+.prow:hover:not(:disabled){background:var(--surface2)}
+.prow:disabled{cursor:default;opacity:.55}
+.prate{font:800 1.7rem var(--display);font-variant-numeric:tabular-nums}
+.pname{font-weight:600;display:block}
+.psub{display:block;font-size:.82rem;color:var(--ink2)}
+.pstat{font-size:.82rem;color:var(--ink2);text-align:right;white-space:nowrap}
+.ptag{font:700 .95rem var(--display)}
+.ptag.t0{color:var(--ta)}.ptag.t1{color:var(--tb)}
+.empty-list{padding:18px;color:var(--ink2)}
+
+.matchset{background:var(--surface);border:1px solid var(--rule);padding:16px;display:grid;gap:18px}
+.set-row{display:grid;gap:8px}
+.set-row h3{font:800 1.2rem var(--display);letter-spacing:.02em}
+.pitches{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px}
+.pitch{text-align:left;border:1.5px solid var(--rule);background:var(--bg);padding:10px 12px;cursor:pointer;border-radius:2px;color:var(--ink)}
+.pitch b{display:block;font:800 1.1rem var(--display)}
+.pitch span{font-size:.85rem;color:var(--ink2)}
+.pitch[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.pitch[aria-pressed="true"] span{color:var(--bg);opacity:.8}
+.start-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.start-msg{flex:1 1 240px;font-size:.92rem}
+
+/* match: scoreboard */
+.board{background:var(--board);color:var(--board-ink);padding:18px clamp(14px,3vw,30px) 14px;border-radius:2px}
+.board-main{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center}
+.bname{display:flex;gap:8px;align-items:center;color:var(--board-dim);font-weight:600;min-width:0}
+.bname span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bteam.batting .bname{color:var(--board-ink)}
+.bteam.batting .bname::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--board-ball);flex:none}
+.bscore{font:800 clamp(2rem,5.2vw,3.5rem)/1.05 var(--display);letter-spacing:.01em;font-variant-numeric:tabular-nums;margin-top:4px}
+.bscore .sc{opacity:.55}.bscore .sc.cur{opacity:1}
+.bscore .amp{font-size:.5em;opacity:.5;margin:0 .35em}
+.bscore .yet{font-size:.5em;font-weight:600;color:var(--board-dim);letter-spacing:0}
+.bteam.right{text-align:right}.bteam.right .bname{justify-content:flex-end}
+.bmid{text-align:center;display:grid;gap:2px}
+.bday{font:800 1.5rem var(--display)}
+.bsess,.bleft{font-size:.9rem;color:var(--board-dim)}
+.board-foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:14px;padding-top:10px;border-top:1px solid var(--board-rule);font-size:.95rem}
+.board-foot #bsit{font-weight:600}
+.board-foot #bpitch{color:var(--board-dim)}
+.pips{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.dayp{display:flex;gap:3px;align-items:center;font:700 .8rem var(--display);color:var(--board-dim)}
+.dayp em{font-style:normal;margin-right:3px}
+.pip{width:14px;height:6px;background:var(--board-rule)}
+.pip.done{background:var(--board-dim)}.pip.now{background:var(--board-ball)}
+@media (max-width:640px){
+  .board-main{grid-template-columns:1fr 1fr}
+  .bmid{grid-column:1/-1;order:3;grid-template-columns:repeat(3,auto);justify-content:center;gap:14px;align-items:baseline}
+}
+
+.crease{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px 24px;background:var(--surface);border:1px solid var(--rule);border-top:0;padding:12px 16px}
+.crease h3{font:700 .95rem var(--text);color:var(--ink2);margin-bottom:2px}
+.crease p{display:flex;justify-content:space-between;gap:12px;font-variant-numeric:tabular-nums}
+.crease p b{font-family:var(--display);font-size:1.15rem;font-weight:800}
+@media (max-width:640px){.brand h1{font-size:1.6rem}.tag{font-size:.92rem}}
+
+.controls{display:grid;gap:10px;margin:16px 0}
+.ctl-row{display:flex;gap:8px 10px;flex-wrap:wrap;align-items:center}
+.lbl{color:var(--ink2)}
+.resultbox{background:var(--ink);color:var(--bg);padding:18px 20px;margin-bottom:16px;display:grid;gap:10px}
+.resultbox h2{font:800 clamp(1.7rem,4vw,2.4rem)/1.1 var(--display);text-wrap:balance}
+.resultbox .btn{border-color:var(--bg);color:var(--bg)}
+.resultbox .btn:hover:not(:disabled){background:var(--bg);color:var(--ink)}
+.resultbox .btn.primary{background:var(--ball);border-color:var(--ball);color:var(--on-ball)}
+.tabs{display:flex;gap:0;margin-bottom:6px;border-bottom:1.5px solid var(--ink)}
+.tabs button{border:0;background:transparent;padding:.6rem 1.1rem;font:800 1.15rem var(--display);cursor:pointer;color:var(--ink2)}
+.tabs button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+
+/* commentary */
+.feed{display:flex;flex-direction:column}
+.over{padding:12px 0;border-top:1px solid var(--rule);display:grid;gap:8px}
+.oh{display:flex;flex-wrap:wrap;gap:2px 14px;align-items:baseline}
+.on{font:700 1.05rem var(--display);color:var(--ink2);min-width:4.4em}
+.obowl{font-weight:600}
+.ofig{color:var(--ink2);font-size:.9rem;font-variant-numeric:tabular-nums}
+.otag{font:700 .9rem var(--display);color:var(--field)}
+.osc{margin-left:auto;font:800 1.3rem var(--display);font-variant-numeric:tabular-nums}
+.balls{display:flex;gap:6px;flex-wrap:wrap}
+.chip{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font:700 .95rem var(--display);border:1.5px solid var(--ink2);color:var(--ink)}
+.chip.dot{border-color:var(--rule);color:var(--ink2)}
+.chip.four{background:var(--field);border-color:var(--field);color:var(--on-field)}
+.chip.six{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.chip.wkt{background:var(--ball);border-color:var(--ball);color:var(--on-ball)}
+.chip.ex{border-style:dashed;font-size:.68rem}
+.onote{font-style:italic}
+.onote.w{font-style:normal;font-weight:600;color:var(--ball)}
+.row{padding:12px 0;border-top:1px solid var(--rule)}
+.row.day,.row.innstart{font:800 1.25rem var(--display);padding-top:16px}
+.row.innend{font-weight:600}
+.row.info{font-style:italic}
+.row .sub{color:var(--ink2);font-size:.92rem}
+.brk{border-top:2px solid var(--ink);padding:12px 0;display:grid;gap:4px}
+.brk h3{font:800 1.3rem var(--display)}
+.brk p{display:flex;gap:12px;font-variant-numeric:tabular-nums}
+.brk p b{min-width:9em}
+.skipped{padding:12px 14px;border-top:1px solid var(--rule);background:var(--surface);display:grid;gap:4px}
+.skipped ul{padding-left:1.1em;margin:0;font-size:.92rem}
+
+/* scorecards */
+.cards{display:grid;gap:20px;margin-top:10px}
+.card{background:var(--surface);border:1px solid var(--rule);padding:14px}
+.card h3{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font:800 1.3rem var(--display);margin-bottom:8px}
+.card h3 .tot{font-variant-numeric:tabular-nums}
+.tw{overflow-x:auto;margin-bottom:8px}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+th{font:700 .95rem var(--display);text-align:right;color:var(--ink2);padding:4px 8px;border-bottom:1.5px solid var(--ink)}
+td{padding:6px 8px;border-bottom:1px solid var(--rule);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left;white-space:normal;min-width:150px}
+td small{display:block;color:var(--ink2);font-size:.8rem}
+tr.tot td{font-weight:700;border-bottom:0}
+.card p{font-size:.92rem;margin-top:6px}
+@media (prefers-reduced-motion:no-preference){.over,.brk,.row{animation:in .25s ease-out}}
+@keyframes in{from{opacity:.3}to{opacity:1}}
+
+/* home */
+.home-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:24px;align-items:start}
+.homecard{background:var(--surface);border:1px solid var(--rule);padding:20px;display:grid;gap:14px}
+.homecard h2{font:800 1.7rem/1.05 var(--display);letter-spacing:.02em}
+.homecard.main{background:var(--board);color:var(--board-ink);border-color:var(--board)}
+.homecard.main .muted{color:var(--board-dim)}
+.homecard.main .btn{border-color:var(--board-ink);color:var(--board-ink)}
+.homecard.main .btn:hover:not(:disabled){background:var(--board-ink);color:var(--board)}
+.homecard.main .btn.primary{background:var(--board-ball);border-color:var(--board-ball);color:#1b0907}
+.field{display:grid;gap:4px}
+.field span{font-size:.9rem;color:var(--board-dim)}
+.field input,.codein{padding:.6rem .8rem;min-height:44px;border:1.5px solid var(--board-dim);background:transparent;color:var(--board-ink);border-radius:2px}
+.codein{text-transform:uppercase;letter-spacing:.2em;font:800 1.3rem var(--display);width:9ch}
+.joinrow{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.or{color:var(--board-dim);font-size:.95rem}
+.rules{display:grid;gap:6px;padding-left:1.2em;margin:0}
+.homecard .status{margin:0}
+.homecard.main .status.bad{color:var(--board-ball)}
+
+/* room */
+.netmsg{background:var(--ink);color:var(--bg);padding:8px 14px;margin-bottom:14px;font-weight:600}
+.roombox{display:grid;gap:16px;max-width:640px}
+.codeboard{background:var(--board);color:var(--board-ink);padding:18px 20px;display:grid;gap:10px}
+.codebig{font:800 clamp(2.6rem,10vw,4.2rem)/1 var(--display);letter-spacing:.18em;font-variant-numeric:tabular-nums}
+.codeboard .muted{color:var(--board-dim)}
+.linkrow{display:flex;gap:8px;flex-wrap:wrap}
+.linkrow input{flex:1 1 220px;min-width:0;padding:.5rem .7rem;border:1.5px solid var(--board-dim);background:transparent;color:var(--board-ink);border-radius:2px}
+.codeboard .btn{border-color:var(--board-ink);color:var(--board-ink)}
+.codeboard .btn:hover:not(:disabled){background:var(--board-ink);color:var(--board)}
+.whos{list-style:none;padding:0;margin:0;display:grid;gap:0}
+.whos li{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--rule);font-weight:600}
+.whos li.wait{color:var(--ink2);font-weight:400;font-style:italic}
+.draftbar{background:var(--board);color:var(--board-ink);padding:14px 18px;margin-bottom:18px;display:grid;gap:10px;position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+.draftbar .who{font:800 1.5rem/1.1 var(--display)}
+.draftbar .who.me::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--board-ball);margin-right:10px}
+.draftbar .sub{color:var(--board-dim)}
+.draftbar .btn{border-color:var(--board-ink);color:var(--board-ink)}
+.draftbar .btn:hover:not(:disabled){background:var(--board-ink);color:var(--board)}
+.draftbar .btn.primary{background:var(--board-ball);border-color:var(--board-ball);color:#1b0907}
+.confirm{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.snake{display:flex;gap:3px;flex-wrap:wrap}
+.snake i{width:14px;height:8px;background:var(--board-rule)}
+.snake i.t0.done{background:var(--ta)}.snake i.t1.done{background:var(--tb)}
+.snake i.now{outline:2px solid var(--board-ink);outline-offset:1px}
+.snake i.t0:not(.done){border-bottom:2px solid var(--ta)}.snake i.t1:not(.done){border-bottom:2px solid var(--tb)}
+.you{font:700 .9rem var(--display);padding:1px 6px;border:1.5px solid currentColor;margin-left:6px;vertical-align:middle}
+.prow.sel{background:var(--surface2);box-shadow:inset 3px 0 0 var(--ink)}
+.pstat.bad{color:var(--ball);white-space:normal;max-width:12em}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:24px;align-items:start}
+.tosscard{display:grid;gap:14px;max-width:560px}
+.tosscard h2{font:800 2rem var(--display)}
+.tosscard .big{font:800 clamp(1.6rem,5vw,2.4rem)/1.1 var(--display)}
+.pitchcard{background:var(--surface);border:1px solid var(--rule);padding:12px 14px}
+.pitchcard b{font:800 1.2rem var(--display)}
+.coin{width:84px;height:84px;border-radius:50%;background:var(--board);color:var(--board-ink);display:grid;place-items:center;font:800 2rem var(--display);border:4px solid var(--board-dim)}
+@media (prefers-reduced-motion:no-preference){.coin{animation:flip 1.3s ease-out}}
+@keyframes flip{from{transform:rotateY(0)}to{transform:rotateY(1440deg)}}
+.roominfo{margin-bottom:12px;color:var(--ink2)}
+.roominfo b{color:var(--ink)}
+
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="mast">
+    <div class="brand">
+      <svg class="ball" viewBox="0 0 40 40" width="40" height="40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="currentColor"/><path d="M7 11c6 5 6 13 0 18M33 11c-6 5-6 13 0 18" fill="none" style="stroke:var(--on-ball)" stroke-width="1.6" stroke-dasharray="2.5 2.5" stroke-linecap="round"/></svg>
+      <div><h1>Dream Test XI</h1><p class="tag" id="tagline"></p></div>
+    </div>
+    <button class="btn sm" id="btn-quit" type="button" hidden>Back</button>
+  </header>
+
+  <p class="netmsg" id="netmsg" role="status" hidden></p>
+
+  <main>
+    <section id="home">
+      <div class="home-grid">
+        <div class="homecard main">
+          <h2>Play online with a friend</h2>
+          <p class="muted">Each of you opens this page on your own device. The game draws sides at random and you take turns picking players in a snake draft. Team A picks 1, Team B picks 2, then A, B and so on until both XIs are full. Then comes the toss, and you both watch the same match, over by over.</p>
+          <label class="field"><span>Your name</span><input id="h-name" type="text" maxlength="16" placeholder="Your name" autocomplete="nickname"></label>
+          <div><button class="btn primary big" id="h-create" type="button">Create a room</button></div>
+          <p class="or">or join your friend's room</p>
+          <div class="joinrow">
+            <input class="codein" id="h-code" type="text" maxlength="5" placeholder="CODE" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Room code">
+            <button class="btn" id="h-join" type="button">Join room</button>
+          </div>
+          <p class="status bad" id="h-msg" hidden></p>
+        </div>
+        <div class="homecard">
+          <h2>Play on this device</h2>
+          <p class="muted">Pick both XIs yourself from the full list of legends, set the pitch and the toss, and run a Test. No room needed.</p>
+          <div><button class="btn big" id="h-local" type="button">Pick two XIs</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="setup" class="paned" data-pane="pool" hidden>
+      <p class="note" id="example-note" hidden>Two example squads are loaded. Swap players, auto-pick, or press Start the Test to play them as they are.</p>
+      <nav class="panes" id="panes" aria-label="Setup sections"></nav>
+      <div class="grid">
+        <section class="pane pane-a" id="pane-a"></section>
+        <section class="pane pane-pool" id="pane-pool">
+          <div class="pool-head"><h2>Players</h2><div class="seg" id="target" role="group" aria-label="Add players to"></div></div>
+          <div class="filters" id="filters" role="group" aria-label="Filter by role"></div>
+          <label class="search"><span class="sr">Search players</span><input id="q" type="search" placeholder="Search by name" autocomplete="off"></label>
+          <ul class="plist" id="plist"></ul>
+        </section>
+        <section class="pane pane-b" id="pane-b"></section>
+        <section class="pane pane-match" id="pane-match"></section>
+      </div>
+    </section>
+
+    <section id="room" class="paned" data-pane="pool" hidden>
+      <div id="room-body"></div>
+    </section>
+
+    <section id="match" hidden>
+      <p class="roominfo" id="roominfo" hidden></p>
+      <div class="board" id="board">
+        <div class="board-main">
+          <div class="bteam" id="bt0"><div class="bname"><span></span></div><div class="bscore"></div></div>
+          <div class="bmid"><div class="bday" id="bday"></div><div class="bsess" id="bsess"></div><div class="bleft" id="bleft"></div></div>
+          <div class="bteam right" id="bt1"><div class="bname"><span></span></div><div class="bscore"></div></div>
+        </div>
+        <div class="board-foot"><span id="bsit"></span><span id="bpitch"></span></div>
+        <div class="pips" id="pips" aria-hidden="true"></div>
+      </div>
+      <div class="crease" id="crease" hidden>
+        <div><h3>At the crease</h3><div id="cr-bat"></div></div>
+        <div><h3>Bowling</h3><div id="cr-bowl"></div></div>
+        <div><h3>Innings</h3><div id="cr-meta"></div></div>
+      </div>
+      <div class="controls">
+        <div class="ctl-row">
+          <button class="btn primary" id="btn-play" type="button">Pause</button>
+          <button class="btn" id="btn-step" type="button">Next over</button>
+          <div class="seg" id="speed" role="group" aria-label="Speed">
+            <button type="button" data-speed="slow" aria-pressed="false">Slow</button>
+            <button type="button" data-speed="normal" aria-pressed="true">Normal</button>
+            <button type="button" data-speed="fast" aria-pressed="false">Fast</button>
+          </div>
+        </div>
+        <div class="ctl-row">
+          <span class="lbl">Skip to</span>
+          <button class="btn sm" type="button" data-skip="session">Next break</button>
+          <button class="btn sm" type="button" data-skip="day">Stumps</button>
+          <button class="btn sm" type="button" data-skip="innings">End of innings</button>
+          <button class="btn sm" type="button" data-skip="end">Result</button>
+          <label class="chk"><input type="checkbox" id="chk-break" checked> Pause at breaks</label>
+        </div>
+      </div>
+      <div id="resultbox" class="resultbox" hidden></div>
+      <div class="tabs" role="group" aria-label="View">
+        <button type="button" data-tab="live" aria-pressed="true">Commentary</button>
+        <button type="button" data-tab="cards" aria-pressed="false">Scorecard</button>
+      </div>
+      <div id="feed" class="feed"></div>
+      <div id="cards" class="cards" hidden></div>
+    </section>
+  </main>
+</div>
+
+<script>
+// Player database for the Test match simulator.
+// Ratings are out of 99. Categories are filled in one at a time.
+
+const PLAYERS = {
+  openers: [
+    { id: "hobbs",      name: "Jack Hobbs",        role: "opener", rating: 99 },
+    { id: "gavaskar",   name: "Sunil Gavaskar",    role: "opener", rating: 98 },
+    { id: "cook",       name: "Alastair Cook",     role: "opener", rating: 97 },
+    { id: "hutton",     name: "Len Hutton",        role: "opener", rating: 97 },
+    { id: "hayden",     name: "Matthew Hayden",    role: "opener", rating: 96 },
+    { id: "sutcliffe",  name: "Herbert Sutcliffe", role: "opener", rating: 96 },
+    { id: "greenidge",  name: "Gordon Greenidge",  role: "opener", rating: 95 },
+    { id: "sehwag",     name: "Virender Sehwag",   role: "opener", rating: 95 },
+    { id: "gsmith",     name: "Graeme Smith",      role: "opener", rating: 95 },
+    { id: "ponsford",   name: "Bill Ponsford",     role: "opener", rating: 94 }
+  ],
+  batters: [ // middle-order batters
+    { id: "bradman",      name: "Don Bradman",            role: "batter", rating: 99 },
+    { id: "tendulkar",    name: "Sachin Tendulkar",       role: "batter", rating: 99 },
+    { id: "sobers",       name: "Garfield Sobers",        role: "batter", rating: 98 },
+    { id: "lara",         name: "Brian Lara",             role: "batter", rating: 98 },
+    { id: "ssmith",       name: "Steve Smith",            role: "batter", rating: 98 },
+    { id: "richards",     name: "Viv Richards",           role: "batter", rating: 97 },
+    { id: "sangakkara",   name: "Kumar Sangakkara",       role: "batter", rating: 97 },
+    { id: "ponting",      name: "Ricky Ponting",          role: "batter", rating: 97 },
+    { id: "kallis",       name: "Jacques Kallis",         role: "batter", rating: 97 },
+    { id: "dravid",       name: "Rahul Dravid",           role: "batter", rating: 96 },
+    { id: "gchappell",    name: "Greg Chappell",          role: "batter", rating: 96 },
+    { id: "hammond",      name: "Wally Hammond",          role: "batter", rating: 96 },
+    { id: "root",         name: "Joe Root",               role: "batter", rating: 96 },
+    { id: "pollock",      name: "Graeme Pollock",         role: "batter", rating: 96 },
+    { id: "border",       name: "Allan Border",           role: "batter", rating: 95 },
+    { id: "swaugh",       name: "Steve Waugh",            role: "batter", rating: 95 },
+    { id: "younis",       name: "Younis Khan",            role: "batter", rating: 95 },
+    { id: "miandad",      name: "Javed Miandad",          role: "batter", rating: 95 },
+    { id: "williamson",   name: "Kane Williamson",        role: "batter", rating: 95 },
+    { id: "abd",          name: "AB de Villiers",         role: "batter", rating: 95 },
+    { id: "mahela",       name: "Mahela Jayawardene",     role: "batter", rating: 94 },
+    { id: "inzamam",      name: "Inzamam-ul-Haq",         role: "batter", rating: 94 },
+    { id: "chanderpaul",  name: "Shivnarine Chanderpaul", role: "batter", rating: 94 },
+    { id: "barrington",   name: "Ken Barrington",         role: "batter", rating: 94 },
+    { id: "clarke",       name: "Michael Clarke",         role: "batter", rating: 93 },
+    { id: "laxman",       name: "VVS Laxman",             role: "batter", rating: 93 },
+    { id: "pietersen",    name: "Kevin Pietersen",        role: "batter", rating: 93 },
+    { id: "mathews",      name: "Angelo Mathews",         role: "batter", rating: 92 },
+    { id: "misbah",       name: "Misbah-ul-Haq",          role: "batter", rating: 92 },
+    { id: "amla",         name: "Hashim Amla",            role: "batter", rating: 92 }
+  ],
+  wicketkeepers: [
+    { id: "gilchrist",     name: "Adam Gilchrist",   role: "wk", rating: 99 },
+    { id: "knott",         name: "Alan Knott",       role: "wk", rating: 98 },
+    { id: "dhoni",         name: "MS Dhoni",         role: "wk", rating: 96 },
+    // Same person as "sangakkara" in batters; sameAs lets the team builder block picking him twice
+    { id: "sangakkara_wk", name: "Kumar Sangakkara", role: "wk", rating: 96, sameAs: "sangakkara" },
+    { id: "healy",         name: "Ian Healy",        role: "wk", rating: 96 },
+    { id: "aflower",       name: "Andy Flower",      role: "wk", rating: 95 },
+    { id: "evans",         name: "Godfrey Evans",    role: "wk", rating: 95 },
+    { id: "ames",          name: "Les Ames",         role: "wk", rating: 95 },
+    { id: "stewart",       name: "Alec Stewart",     role: "wk", rating: 94 },
+    { id: "boucher",       name: "Mark Boucher",     role: "wk", rating: 94 },
+    { id: "dujon",         name: "Jeff Dujon",       role: "wk", rating: 94 },
+    { id: "haddin",        name: "Brad Haddin",      role: "wk", rating: 93 },
+    { id: "prior",         name: "Matt Prior",       role: "wk", rating: 93 },
+    { id: "pant",          name: "Rishabh Pant",     role: "wk", rating: 93 },
+    { id: "engineer",      name: "Farokh Engineer",  role: "wk", rating: 92 }
+  ],
+  allrounders: [
+    // sameAs links an entry to the same person in another category (blocks double-picking)
+    { id: "sobers_ar",   name: "Garfield Sobers",     role: "allrounder", rating: 99, sameAs: "sobers" },
+    { id: "kallis_ar",   name: "Jacques Kallis",      role: "allrounder", rating: 99, sameAs: "kallis" },
+    { id: "imran",       name: "Imran Khan",          role: "allrounder", rating: 98 },
+    { id: "miller",      name: "Keith Miller",        role: "allrounder", rating: 97 },
+    { id: "botham",      name: "Ian Botham",          role: "allrounder", rating: 97 },
+    { id: "kapil",       name: "Kapil Dev",           role: "allrounder", rating: 97 },
+    { id: "hadlee",      name: "Richard Hadlee",      role: "allrounder", rating: 97 },
+    { id: "spollock",    name: "Shaun Pollock",       role: "allrounder", rating: 96 },
+    { id: "ashwin",      name: "Ravichandran Ashwin", role: "allrounder", rating: 96 },
+    { id: "shakib",      name: "Shakib Al Hasan",     role: "allrounder", rating: 96 },
+    { id: "greig",       name: "Tony Greig",          role: "allrounder", rating: 95 },
+    { id: "vettori",     name: "Daniel Vettori",      role: "allrounder", rating: 95 },
+    { id: "flintoff",    name: "Andrew Flintoff",     role: "allrounder", rating: 94 },
+    { id: "cairns",      name: "Chris Cairns",        role: "allrounder", rating: 94 },
+    { id: "razzaq",      name: "Abdul Razzaq",        role: "allrounder", rating: 93 },
+    { id: "mushtaq",     name: "Mushtaq Mohammad",    role: "allrounder", rating: 93 },
+    { id: "rhodes",      name: "Wilfred Rhodes",      role: "allrounder", rating: 93 },
+    { id: "noble",       name: "Monty Noble",         role: "allrounder", rating: 92 },
+    { id: "bailey",      name: "Trevor Bailey",       role: "allrounder", rating: 92 },
+    { id: "benaud",      name: "Richie Benaud",       role: "allrounder", rating: 92 }
+  ],
+  spinners: [
+    { id: "murali",      name: "Muttiah Muralitharan", role: "spinner", rating: 99 },
+    { id: "warne",       name: "Shane Warne",          role: "spinner", rating: 99 },
+    { id: "kumble",      name: "Anil Kumble",          role: "spinner", rating: 97 },
+    { id: "ashwin_sp",   name: "Ravichandran Ashwin",  role: "spinner", rating: 97, sameAs: "ashwin" },
+    { id: "laker",       name: "Jim Laker",            role: "spinner", rating: 96 },
+    { id: "grimmett",    name: "Clarrie Grimmett",     role: "spinner", rating: 96 },
+    { id: "herath",      name: "Rangana Herath",       role: "spinner", rating: 95 },
+    { id: "bedi",        name: "Bishan Singh Bedi",    role: "spinner", rating: 95 },
+    { id: "saqlain",     name: "Saqlain Mushtaq",      role: "spinner", rating: 94 },
+    { id: "underwood",   name: "Derek Underwood",      role: "spinner", rating: 94 },
+    { id: "jadeja",      name: "Ravindra Jadeja",      role: "spinner", rating: 94 },
+    { id: "harbhajan",   name: "Harbhajan Singh",      role: "spinner", rating: 93 },
+    { id: "vettori_sp",  name: "Daniel Vettori",       role: "spinner", rating: 93, sameAs: "vettori" },
+    { id: "prasanna",    name: "EAS Prasanna",         role: "spinner", rating: 92 },
+    { id: "qadir",       name: "Abdul Qadir",          role: "spinner", rating: 92 }
+  ],
+  pacers: [
+    { id: "marshall",    name: "Malcolm Marshall", role: "pacer", rating: 99 },
+    { id: "wasim",       name: "Wasim Akram",      role: "pacer", rating: 99 },
+    { id: "mcgrath",     name: "Glenn McGrath",    role: "pacer", rating: 98 },
+    { id: "lillee",      name: "Dennis Lillee",    role: "pacer", rating: 98 },
+    { id: "hadlee_pc",   name: "Richard Hadlee",   role: "pacer", rating: 98, sameAs: "hadlee" },
+    { id: "ambrose",     name: "Curtly Ambrose",   role: "pacer", rating: 97 },
+    { id: "imran_pc",    name: "Imran Khan",       role: "pacer", rating: 97, sameAs: "imran" },
+    { id: "steyn",       name: "Dale Steyn",       role: "pacer", rating: 97 },
+    { id: "waqar",       name: "Waqar Younis",     role: "pacer", rating: 96 },
+    { id: "barnes",      name: "Sydney Barnes",    role: "pacer", rating: 96 },
+    { id: "garner",      name: "Joel Garner",      role: "pacer", rating: 96 },
+    { id: "trueman",     name: "Fred Trueman",     role: "pacer", rating: 95 },
+    { id: "walsh",       name: "Courtney Walsh",   role: "pacer", rating: 95 },
+    { id: "spollock_pc", name: "Shaun Pollock",    role: "pacer", rating: 95, sameAs: "spollock" },
+    { id: "roberts",     name: "Andy Roberts",     role: "pacer", rating: 95 },
+    { id: "holding",     name: "Michael Holding",  role: "pacer", rating: 95 },
+    { id: "donald",      name: "Allan Donald",     role: "pacer", rating: 94 },
+    { id: "willis",      name: "Bob Willis",       role: "pacer", rating: 94 },
+    { id: "anderson",    name: "James Anderson",   role: "pacer", rating: 94 },
+    { id: "vaas",        name: "Chaminda Vaas",    role: "pacer", rating: 93 }
+  ]
+};
+
+;
+// profiles.js
+// Turns the raw rating entries in players.js into simulation-ready players.
+//
+// Each person gets: bat (0-99 batting skill), bowl (0-99 bowling skill, 0 = does not bowl),
+// type ('pace' | 'spin'), style, aggr (0-1, how fast they like to score).
+// Specialists keep the rating you gave them as their main skill. Everyone else
+// (all-rounder split, tail-end batting, part-time bowling) comes from the table below.
+//
+// Fields: b = batting skill, w = bowling skill, t = bowling type, s = style, a = aggression
+
+const PERSON = {
+  // ---- Openers (bat = category rating) ----
+  hobbs: { a: .45 }, gavaskar: { a: .30 }, cook: { a: .25 }, hutton: { a: .35 },
+  hayden: { a: .80 }, sutcliffe: { a: .30 }, greenidge: { a: .75 },
+  sehwag: { a: .97, w: 52, t: 'spin', s: 'OB' }, gsmith: { a: .50 }, ponsford: { a: .45 },
+
+  // ---- Middle-order batters (bat = category rating; w = part-time bowling) ----
+  bradman: { a: .80 }, tendulkar: { a: .60, w: 50, t: 'spin', s: 'LB' },
+  sobers: { b: 98, w: 90, t: 'pace', s: 'LF/SLA', a: .65 }, lara: { a: .85 },
+  ssmith: { a: .45, w: 55, t: 'spin', s: 'LB' }, richards: { a: .95, w: 50, t: 'spin', s: 'OB' },
+  sangakkara: { b: 97, a: .60 }, ponting: { a: .70 },
+  kallis: { b: 97, w: 85, t: 'pace', s: 'RFM', a: .35 }, dravid: { a: .20 },
+  gchappell: { a: .55, w: 50, t: 'pace', s: 'RM' }, hammond: { a: .60, w: 55, t: 'pace', s: 'RM' },
+  root: { a: .50, w: 55, t: 'spin', s: 'OB' }, pollock: { a: .55 },
+  border: { a: .35, w: 50, t: 'spin', s: 'SLA' }, swaugh: { a: .50, w: 52, t: 'pace', s: 'RM' },
+  younis: { a: .45 }, miandad: { a: .65, w: 40, t: 'spin', s: 'LB' },
+  williamson: { a: .35, w: 50, t: 'spin', s: 'OB' }, abd: { a: .85 }, mahela: { a: .60 },
+  inzamam: { a: .45 }, chanderpaul: { a: .10 }, barrington: { a: .30, w: 50, t: 'spin', s: 'LB' },
+  clarke: { a: .65, w: 55, t: 'spin', s: 'SLA' }, laxman: { a: .60 },
+  pietersen: { a: .80, w: 45, t: 'spin', s: 'OB' }, mathews: { a: .45, w: 62, t: 'pace', s: 'RM' },
+  misbah: { a: .30 }, amla: { a: .30 },
+
+  // ---- Wicketkeepers (keeping skill = category rating, batting set here) ----
+  gilchrist: { b: 97, a: .90 }, knott: { b: 88, a: .55 }, dhoni: { b: 90, a: .60 },
+  healy: { b: 86, a: .60 }, aflower: { b: 93, a: .40 }, evans: { b: 72, a: .65 },
+  ames: { b: 90, a: .60 }, stewart: { b: 86, a: .55 }, boucher: { b: 82, a: .55 },
+  dujon: { b: 86, a: .50 }, haddin: { b: 80, a: .65 }, prior: { b: 82, a: .50 },
+  pant: { b: 90, a: .90 }, engineer: { b: 82, a: .80 },
+
+  // ---- All-rounders (batting and bowling split) ----
+  imran: { b: 82, w: 97, t: 'pace', s: 'RF', a: .55 }, miller: { b: 87, w: 90, t: 'pace', s: 'RF', a: .75 },
+  botham: { b: 88, w: 90, t: 'pace', s: 'RFM', a: .90 }, kapil: { b: 80, w: 90, t: 'pace', s: 'RFM', a: .85 },
+  hadlee: { b: 78, w: 97, t: 'pace', s: 'RFM', a: .50 }, spollock: { b: 80, w: 94, t: 'pace', s: 'RFM', a: .40 },
+  ashwin: { b: 78, w: 96, t: 'spin', s: 'OB', a: .40 }, shakib: { b: 85, w: 90, t: 'spin', s: 'SLA', a: .55 },
+  greig: { b: 86, w: 78, t: 'pace', s: 'RM/OB', a: .60 }, vettori: { b: 70, w: 92, t: 'spin', s: 'SLA', a: .35 },
+  flintoff: { b: 82, w: 88, t: 'pace', s: 'RF', a: .75 }, cairns: { b: 80, w: 84, t: 'pace', s: 'RFM', a: .80 },
+  razzaq: { b: 79, w: 80, t: 'pace', s: 'RFM', a: .80 }, mushtaq: { b: 84, w: 78, t: 'spin', s: 'LB', a: .60 },
+  rhodes: { b: 72, w: 92, t: 'spin', s: 'SLA', a: .20 }, noble: { b: 80, w: 88, t: 'spin', s: 'OB', a: .40 },
+  bailey: { b: 78, w: 78, t: 'pace', s: 'RM', a: .05 }, benaud: { b: 68, w: 88, t: 'spin', s: 'LB', a: .60 },
+
+  // ---- Spinners (bowl = category rating, batting set here) ----
+  murali: { b: 20, s: 'OB', a: .70 }, warne: { b: 52, s: 'LB', a: .70 }, kumble: { b: 48, s: 'LB', a: .40 },
+  laker: { b: 38, s: 'OB', a: .35 }, grimmett: { b: 28, s: 'LB', a: .30 }, herath: { b: 35, s: 'SLA', a: .40 },
+  bedi: { b: 18, s: 'SLA', a: .30 }, saqlain: { b: 40, s: 'OB', a: .50 }, underwood: { b: 22, s: 'SLA', a: .30 },
+  jadeja: { b: 76, s: 'SLA', a: .60 }, harbhajan: { b: 52, s: 'OB', a: .70 }, prasanna: { b: 30, s: 'OB', a: .35 },
+  qadir: { b: 32, s: 'LB', a: .50 },
+
+  // ---- Pacers (bowl = category rating, batting set here) ----
+  marshall: { b: 58, s: 'RF', a: .60 }, wasim: { b: 64, s: 'LF', a: .75 }, mcgrath: { b: 12, s: 'RFM', a: .30 },
+  lillee: { b: 45, s: 'RF', a: .60 }, ambrose: { b: 34, s: 'RF', a: .40 }, steyn: { b: 36, s: 'RF', a: .50 },
+  waqar: { b: 33, s: 'RF', a: .50 }, barnes: { b: 30, s: 'RFM', a: .30 }, garner: { b: 38, s: 'RF', a: .60 },
+  trueman: { b: 45, s: 'RF', a: .60 }, walsh: { b: 8, s: 'RFM', a: .25 }, roberts: { b: 40, s: 'RF', a: .50 },
+  holding: { b: 22, s: 'RF', a: .40 }, donald: { b: 25, s: 'RF', a: .40 }, willis: { b: 20, s: 'RF', a: .40 },
+  anderson: { b: 12, s: 'RFM', a: .25 }, vaas: { b: 52, s: 'LFM', a: .50 }
+};
+
+// Surname shown on scorecards where the plain last word would be unclear
+const SHORT = {
+  abd: 'de Villiers', mahela: 'Jayawardene', gsmith: 'G Smith', ssmith: 'S Smith', swaugh: 'S Waugh',
+  gchappell: 'G Chappell', spollock: 'S Pollock', pollock: 'G Pollock', saqlain: 'Saqlain',
+  mushtaq: 'M Mohammad', bedi: 'Bedi', murali: 'Muralitharan', kumble: 'Kumble', aflower: 'A Flower',
+  imran: 'Imran', kapil: 'Kapil Dev', hadlee: 'Hadlee', shakib: 'Shakib', misbah: 'Misbah',
+  inzamam: 'Inzamam', younis: 'Younis', waqar: 'Waqar', wasim: 'Wasim', dhoni: 'Dhoni',
+  hobbs: 'Hobbs', prasanna: 'Prasanna', engineer: 'Engineer'
+};
+
+const STYLE_NAME = {
+  RF: 'Right-arm fast', LF: 'Left-arm fast', RFM: 'Right-arm fast-medium', LFM: 'Left-arm fast-medium',
+  RM: 'Right-arm medium', 'RM/OB': 'Medium / off-spin', 'LF/SLA': 'Left-arm pace & spin',
+  OB: 'Off-spin', LB: 'Leg-spin', SLA: 'Slow left-arm'
+};
+
+const ROLE_LABEL = {
+  opener: 'Opener', batter: 'Batter', wk: 'Wicketkeeper',
+  allrounder: 'All-rounder', spinner: 'Spinner', pacer: 'Pacer'
+};
+const ROLE_ORDER = ['opener', 'batter', 'wk', 'allrounder', 'spinner', 'pacer'];
+const DEFAULT_AGGR = { opener: .5, batter: .5, wk: .55, allrounder: .55, spinner: .35, pacer: .4 };
+
+function buildPlayerList() {
+  const all = [];
+  for (const cat of Object.keys(PLAYERS)) {
+    for (const p of PLAYERS[cat]) {
+      const key = p.sameAs || p.id;
+      const d = PERSON[key] || {};
+      const bat = d.b != null ? d.b : ((p.role === 'opener' || p.role === 'batter') ? p.rating : 40);
+      let bowl = 0, type = null;
+      if (p.role === 'spinner') { bowl = p.rating; type = 'spin'; }
+      else if (p.role === 'pacer') { bowl = p.rating; type = 'pace'; }
+      else if (d.w) { bowl = d.w; type = d.t; }
+      let style = d.s || '';
+      if (!style && type) style = type === 'spin' ? 'OB' : 'RFM';
+      const parts = p.name.split(' ');
+      all.push({
+        id: p.id, key, name: p.name, role: p.role, rating: p.rating,
+        short: SHORT[key] || parts[parts.length - 1],
+        bat, bowl, type, style,
+        aggr: d.a != null ? d.a : DEFAULT_AGGR[p.role],
+        keep: p.role === 'wk' ? p.rating : 0
+      });
+    }
+  }
+  return all;
+}
+
+const ALL_PLAYERS = buildPlayerList();
+const PLAYER_BY_ID = {};
+for (const p of ALL_PLAYERS) PLAYER_BY_ID[p.id] = p;
+
+// A player counts as a proper bowling option from this skill up (below it = part-timer)
+const BOWLING_OPTION_MIN = 65;
+
+function canBowl(p) { return p.bowl >= BOWLING_OPTION_MIN; }
+
+// Batting order: best two openers open, then everyone by batting skill,
+// keepers and all-rounders nudged down a little so they sit at 6-8 like real sides.
+function autoOrder(xi) {
+  const players = xi.slice();
+  const openers = players.filter(p => p.role === 'opener').sort((a, b) => b.rating - a.rating);
+  let open;
+  if (openers.length >= 2) open = openers.slice(0, 2);
+  else {
+    const rest = players.filter(p => p.role !== 'opener' && p.role !== 'wk' && p.bat >= 85).sort((a, b) => b.bat - a.bat);
+    open = openers.concat(rest).slice(0, 2);
+  }
+  const openIds = new Set(open.map(p => p.id));
+  const weight = p => p.bat - (p.role === 'wk' ? 7 : 0) - (p.role === 'allrounder' ? 3 : 0);
+  const others = players.filter(p => !openIds.has(p.id)).sort((a, b) => weight(b) - weight(a));
+  return open.concat(others);
+}
+
+function validateXI(xi) {
+  const problems = [];
+  const keys = new Set(xi.map(p => p.key));
+  if (xi.length !== 11) problems.push(xi.length < 11 ? `Pick ${11 - xi.length} more player${11 - xi.length === 1 ? '' : 's'}` : 'Too many players');
+  if (keys.size !== xi.length) problems.push('Same player picked twice');
+  if (!xi.some(p => p.role === 'wk')) problems.push('Need a wicketkeeper');
+  const bowlers = xi.filter(canBowl).length;
+  if (bowlers < 4) problems.push(`Need ${4 - bowlers} more bowling option${4 - bowlers === 1 ? '' : 's'}`);
+  return { ok: problems.length === 0, problems, bowlers };
+}
+
+// Balanced random XI (2 openers, 3 batters, 1 keeper, 2 all-rounders, 1 spinner, 2 pacers),
+// leaning towards the higher rated players.
+function autoPick(rng, takenKeys) {
+  const keys = new Set(takenKeys || []);
+  const need = [['opener', 2], ['batter', 3], ['wk', 1], ['allrounder', 2], ['spinner', 1], ['pacer', 2]];
+  const picked = [];
+  for (const [role, n] of need) {
+    for (let i = 0; i < n; i++) {
+      const pool = ALL_PLAYERS.filter(p => p.role === role && !keys.has(p.key));
+      if (!pool.length) continue;
+      const w = pool.map(p => Math.exp((p.rating - 96) / 2.2));
+      let u = rng() * w.reduce((a, b) => a + b, 0), idx = 0;
+      for (; idx < pool.length - 1; idx++) { if (u < w[idx]) break; u -= w[idx]; }
+      picked.push(pool[idx]);
+      keys.add(pool[idx].key);
+    }
+  }
+  return autoOrder(picked);
+}
+
+// ---- Snake draft rules (shared by the browser and the room server) ----
+// Pick 1 goes to A, then B takes two, A takes two, and so on. Over 22 picks each side gets 11.
+function draftSide(i) { return i === 0 ? 'A' : (Math.floor((i - 1) / 2) % 2 === 0 ? 'B' : 'A'); }
+
+// Returns why this pick would leave the side unable to finish a legal XI, or '' if it is fine.
+function draftBlock(ids, p) {
+  const xi = ids.map(id => PLAYER_BY_ID[id]).concat([p]);
+  const left = 11 - xi.length;
+  const needK = xi.some(x => x.role === 'wk') ? 0 : 1;
+  const needB = Math.max(0, 4 - xi.filter(canBowl).length);
+  if (left >= needK + needB) return '';
+  if (needK && needB) return 'Leaves no room for a keeper and ' + needB + ' bowler' + (needB === 1 ? '' : 's');
+  if (needK) return 'You still need a keeper';
+  return 'You still need ' + needB + ' bowling option' + (needB === 1 ? '' : 's');
+}
+
+;
+// engine.js
+// Over-by-over Test match simulator. Ball-by-ball inside each over.
+//
+// Core idea: every batter has an "average" (from batting skill) and every bowler an "average"
+// (from bowling skill). A matchup average is  batAvg * bowlAvg / 30  (30 = league average),
+// and the chance of a wicket on a ball is  (expected runs per ball) / (matchup average).
+// Pitch, ball age, fatigue, settling in, collapses and batting tempo all bend those numbers.
+
+const Engine = (function () {
+  'use strict';
+
+  const TUNE = { HZ: 0.72, L: 30 };
+
+  /* ---------- helpers ---------- */
+  function mulberry32(a) {
+    return function () {
+      a |= 0; a = (a + 0x6D2B79F5) | 0;
+      let t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
+  function interp(tbl, x) {
+    if (x <= tbl[0][0]) return tbl[0][1];
+    for (let i = 1; i < tbl.length; i++) {
+      if (x <= tbl[i][0]) {
+        const [x0, y0] = tbl[i - 1], [x1, y1] = tbl[i];
+        return y0 + (y1 - y0) * (x - x0) / (x1 - x0);
+      }
+    }
+    return tbl[tbl.length - 1][1];
+  }
+  const fmtOvers = b => Math.floor(b / 6) + '.' + (b % 6);
+
+  // batting skill -> batting average; bowling skill -> bowling average
+  const BAT_AVG = [[0, 3], [10, 6], [25, 13], [40, 20], [55, 27], [70, 34], [80, 40], [88, 46], [92, 50], [95, 55], [97, 60], [99, 68]];
+  const BOWL_AVG = [[0, 200], [30, 95], [40, 72], [50, 53], [60, 42], [70, 34], [80, 28], [90, 24], [95, 21.5], [99, 19.5]];
+
+  /* ---------- runs per ball: tilted distribution ---------- */
+  const RUN_VALUES = [0, 1, 2, 3, 4, 6];
+  const RUN_BASE = [0.69, 0.19, 0.03, 0.003, 0.055, 0.005];
+  const RUN_TABLE = [];
+  (function buildRunTable() {
+    const tilted = lam => {
+      const w = RUN_VALUES.map((r, i) => RUN_BASE[i] * Math.exp(lam * r));
+      const s = w.reduce((a, b) => a + b, 0);
+      return w.map(x => x / s);
+    };
+    const mean = d => d.reduce((a, p, i) => a + p * RUN_VALUES[i], 0);
+    for (let k = 10; k <= 140; k++) {
+      let lo = -4, hi = 4;
+      for (let it = 0; it < 40; it++) {
+        const mid = (lo + hi) / 2;
+        if (mean(tilted(mid)) < k / 100) lo = mid; else hi = mid;
+      }
+      const d = tilted((lo + hi) / 2);
+      let c = 0;
+      RUN_TABLE[k] = d.map(p => (c += p));
+    }
+  })();
+  function sampleRuns(r, u) {
+    const cum = RUN_TABLE[clamp(Math.round(r * 100), 10, 140)];
+    for (let i = 0; i < cum.length; i++) if (u < cum[i]) return RUN_VALUES[i];
+    return 6;
+  }
+
+  /* ---------- pitches ---------- */
+  // pace / spin: [value on day 1, change by the end of the match]; run = scoring factor; haz = wicket factor
+  const PITCHES = {
+    balanced: { name: 'Balanced', blurb: 'Something for everyone', pace: [1.00, -0.04], spin: [0.98, 0.20], run: 1.00, haz: 1.00 },
+    flat: { name: 'Flat road', blurb: 'Runs galore, bowlers toil', pace: [0.96, -0.03], spin: [0.92, 0.12], run: 1.08, haz: 0.90 },
+    green: { name: 'Green seamer', blurb: 'Seam and swing early on', pace: [1.18, -0.16], spin: [0.86, 0.10], run: 0.93, haz: 1.10 },
+    dusty: { name: 'Dust bowl', blurb: 'Turns square from day one', pace: [0.93, -0.03], spin: [1.04, 0.34], run: 0.95, haz: 1.06 },
+    bouncy: { name: 'Bouncy and quick', blurb: 'Pace and bounce throughout', pace: [1.12, -0.04], spin: [0.90, 0.10], run: 1.00, haz: 1.02 }
+  };
+  function pickPitch(rng) {
+    const u = rng();
+    return u < .30 ? 'balanced' : u < .50 ? 'flat' : u < .68 ? 'green' : u < .84 ? 'dusty' : 'bouncy';
+  }
+
+  // batting tempo
+  const MODES = {
+    defend: { run: 0.62, haz: 0.82, label: 'Defending' },
+    normal: { run: 1.00, haz: 1.00, label: 'Normal' },
+    chase: { run: 1.08, haz: 1.05, label: 'Chasing' },
+    aggressive: { run: 1.28, haz: 1.20, label: 'Attacking' }
+  };
+
+  const PACE_HOW = [['b', .21], ['lbw', .20], ['ct', .18], ['cf', .33], ['cb', .03], ['ro', .04], ['hw', .01]];
+  const SPIN_HOW = [['b', .16], ['lbw', .25], ['st', .11], ['ct', .05], ['cf', .34], ['cb', .05], ['ro', .03], ['hw', .01]];
+
+  const MILESTONES = [[50, 'a fifty'], [100, 'a hundred'], [150, '150'], [200, 'a double century'], [250, '250'], [300, 'a triple century'], [350, '350'], [400, '400']];
+
+  const newBall = age => 1 + 0.14 * Math.exp(-age / 10);
+  const fatMult = (f, p) => 1 + 0.03 * Math.max(0, f.tired - (p.type === 'spin' ? 11 : 7));
+
+  /* ---------- the match ---------- */
+  class Match {
+    constructor(teamA, teamB, opts) {
+      opts = opts || {};
+      this.opts = opts;
+      this.seed = opts.seed != null ? opts.seed : (Math.random() * 4294967296) >>> 0;
+      this.rng = mulberry32(this.seed);
+      this.teams = [teamA, teamB].map((t, i) => ({
+        idx: i, name: t.name || ('Team ' + 'AB'[i]), xi: t.players.slice(),
+        fatigue: {}, field: {}, capAggr: 0.88 + this.rng() * 0.28
+      }));
+      for (const t of this.teams) {
+        t.keeper = t.xi.find(p => p.role === 'wk') || t.xi[t.xi.length - 1];
+      }
+      const pk = opts.pitch && opts.pitch !== 'random' && PITCHES[opts.pitch] ? opts.pitch : pickPitch(this.rng);
+      this.pitchKey = pk;
+      this.pitch = PITCHES[pk];
+      this.weather = opts.weather !== false;
+      this.day = 0; this.dayBalls = 0; this.dayLimitBalls = 540;
+      this.lunchDone = false; this.teaDone = false;
+      this.matchBalls = 0;
+      this.inns = []; this.cur = null;
+      this.phase = 'pre'; this.finished = false; this.result = null;
+      this.followOn = false; this.firstBat = null; this.toss = null;
+      this.log = [];
+    }
+
+    gauss() {
+      const u = Math.max(1e-9, this.rng()), v = this.rng();
+      return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+    }
+    oversLeft() {
+      return Math.max(0, ((this.dayLimitBalls - this.dayBalls) + (5 - this.day) * 540) / 6);
+    }
+    aids() {
+      const w = clamp((Math.max(0, this.day - 1) + this.dayBalls / 540) / 5, 0, 1);
+      const p = this.pitch;
+      return { pace: p.pace[0] + p.pace[1] * w, spin: p.spin[0] + p.spin[1] * w };
+    }
+    total(teamIdx) { return this.inns.filter(i => i.bat === teamIdx).reduce((a, i) => a + i.runs, 0); }
+    fat(team, p) { return team.fatigue[p.id] || (team.fatigue[p.id] = { tired: 0, spell: 0, rest: 99 }); }
+    session() { return this.dayBalls < 180 ? 1 : this.dayBalls < 360 ? 2 : 3; }
+
+    /* ----- public stepping ----- */
+    step() {
+      const out = [];
+      if (this.finished) return out;
+      if (this.phase === 'pre') {
+        this.doToss(out);
+        this.startDay(out);
+        this.phase = 'play';
+      }
+      let played = false, guard = 0;
+      while (!played && !this.finished && guard++ < 6) {
+        if (!this.cur) this.startInnings(out);
+        if (this.finished) break;
+        played = this.playOver(out);
+      }
+      this.postOver(out);
+      for (const e of out) this.log.push(e);
+      return out;
+    }
+
+    // until: 'over' | 'session' | 'day' | 'innings' | 'end'
+    run(until) {
+      const all = [];
+      for (let i = 0; i < 6000 && !this.finished; i++) {
+        const out = this.step();
+        for (const e of out) all.push(e);
+        if (until === 'over') break;
+        const kinds = out.filter(e => e.t === 'break' || e.t === 'inningsEnd' || e.t === 'result').map(e => e.kind || e.t);
+        if (until === 'session' && kinds.length) break;
+        if (until === 'day' && out.some(e => (e.t === 'break' && e.kind === 'stumps') || e.t === 'result')) break;
+        if (until === 'innings' && out.some(e => e.t === 'inningsEnd' || e.t === 'result')) break;
+      }
+      return all;
+    }
+
+    /* ----- toss, days, innings ----- */
+    doToss(out) {
+      const rng = this.rng, pk = this.pitchKey;
+      let text;
+      if (this.opts.firstBat === 0 || this.opts.firstBat === 1) {
+        this.firstBat = this.opts.firstBat;
+        this.toss = { winner: null };
+        text = `${this.teams[this.firstBat].name} will bat first on a ${this.pitch.name.toLowerCase()} pitch.`;
+      } else {
+        const w = rng() < 0.5 ? 0 : 1;
+        const batProb = { green: 0.35, dusty: 0.80, flat: 0.88, bouncy: 0.50, balanced: 0.65 }[pk];
+        const bat = rng() < batProb;
+        this.firstBat = bat ? w : 1 - w;
+        this.toss = { winner: w, bat };
+        text = `${this.teams[w].name} win the toss and elect to ${bat ? 'bat' : 'bowl'} first on a ${this.pitch.name.toLowerCase()} pitch.`;
+      }
+      out.push({ t: 'toss', text, pitch: this.pitch.name, pitchBlurb: this.pitch.blurb });
+    }
+
+    startDay(out) {
+      for (; ;) {
+        this.day++;
+        if (this.day > 5) { this.finishDraw(out); return; }
+        this.dayBalls = 0; this.lunchDone = false; this.teaDone = false;
+        let lost = 0;
+        if (this.weather) {
+          if (this.rng() < 0.13) {
+            lost = Math.round(10 + this.rng() * 45);
+            if (this.rng() < 0.04) lost = 90;
+          }
+        }
+        this.dayLimitBalls = (90 - lost) * 6;
+        for (const t of this.teams) for (const k in t.fatigue) { t.fatigue[k].tired *= 0.4; t.fatigue[k].spell = 0; }
+        out.push({
+          t: 'day', day: this.day, lost,
+          text: lost >= 90 ? `Day ${this.day}: washed out by rain, no play possible.`
+            : lost ? `Day ${this.day}: rain delays play, ${lost} overs lost.`
+              : `Day ${this.day}: play begins.`
+        });
+        if (lost >= 90) continue;
+        return;
+      }
+    }
+
+    startInnings(out) {
+      const no = this.inns.length + 1;
+      let bat;
+      if (no === 1) bat = this.firstBat;
+      else if (no === 2) bat = 1 - this.firstBat;
+      else if (no === 3) bat = this.followOn ? 1 - this.firstBat : this.firstBat;
+      else bat = this.followOn ? this.firstBat : 1 - this.firstBat;
+      const bt = this.teams[bat], ft = this.teams[1 - bat];
+      let target = null;
+      if (no === 4) {
+        const own = this.total(bat), opp = this.total(1 - bat);
+        target = opp - own + 1;
+      }
+      const inn = {
+        no, bat, bowl: 1 - bat, runs: 0, wkts: 0, balls: 0,
+        extras: { b: 0, lb: 0, w: 0, nb: 0 },
+        batters: bt.xi.map(p => ({ p, runs: 0, balls: 0, fours: 0, sixes: 0, out: null, in: false, mile: 0, form: Math.exp(0.20 * this.gauss()) })),
+        fow: [], bowlers: {}, bowlOrder: [], seq: [], wktBalls: [],
+        declared: false, end: null, ended: null, target, ballAge: 0,
+        striker: 0, nonStriker: 1, next: 2, part: { runs: 0, balls: 0 }, prevBowlerId: null, overs: 0, mode: 'normal'
+      };
+      inn.batters[0].in = true; inn.batters[1].in = true;
+      this.inns.push(inn);
+      this.cur = inn;
+      for (const k in ft.fatigue) ft.fatigue[k].spell = 0;
+      let text = `Innings ${no}: ${bt.name} to bat`;
+      if (no === 3 && this.followOn) text = `Innings 3: ${bt.name} follow on`;
+      if (no === 4) text += `, chasing ${target} to win`;
+      out.push({ t: 'innings', no, bat: bt.name, bowl: ft.name, target, text, day: this.day });
+    }
+
+    /* ----- AI decisions ----- */
+    tempo(inn) {
+      const left = this.oversLeft();
+      if (inn.no === 4) {
+        const need = inn.target - inn.runs, wih = 10 - inn.wkts;
+        if (need <= 0) return 'normal';
+        const rr = need / Math.max(left, 0.5);
+        if (left < 6) return rr > 7 ? 'defend' : 'aggressive';
+        if (wih <= 3 && rr > 3) return 'defend';
+        if (rr <= 3.0) return 'chase';
+        if (rr <= 4.4) return wih >= 6 ? 'aggressive' : 'normal';
+        if (rr <= 6.0) return wih >= 7 ? 'aggressive' : 'defend';
+        return 'defend';
+      }
+      if (inn.no === 3) {
+        const lead = this.total(inn.bat) - this.total(inn.bowl);
+        if (lead < 0) return left < 210 ? 'defend' : 'normal';
+        if (lead > 120 && left < 170) return 'aggressive';
+      }
+      if (inn.no === 2 && this.day >= 4 && left < 150) return 'defend';
+      return 'normal';
+    }
+
+    shouldDeclare(inn) {
+      const cap = this.teams[inn.bat].capAggr, left = this.oversLeft();
+      if (inn.no === 1) {
+        return inn.runs >= 700 || (inn.runs >= 520 * cap && this.day >= 2 && left <= 255);
+      }
+      if (inn.no === 3 && !this.followOn) {
+        const lead = this.total(inn.bat) - this.total(inn.bowl);
+        const rules = [[320, 110], [390, 90], [460, 70], [540, 55]];
+        return rules.some(([l, o]) => lead >= l * cap && left >= o);
+      }
+      return false;
+    }
+
+    pickBowler(inn, ft) {
+      const rng = this.rng, aids = this.aids();
+      let best = null, bs = -1;
+      for (const p of ft.xi) {
+        if (p.bowl < 30 || p.id === inn.prevBowlerId) continue;
+        const f = this.fat(ft, p), spin = p.type === 'spin';
+        const aid = spin ? aids.spin : aids.pace * newBall(inn.ballAge);
+        let s = 1 / (interp(BOWL_AVG, p.bowl) / aid * fatMult(f, p));
+        if (f.spell >= (spin ? 12 : 7)) s *= 0.22;
+        if (p.bowl < 65) s *= 0.6;
+        s *= 0.93 + 0.14 * rng();
+        if (s > bs) { bs = s; best = p; }
+      }
+      if (!best) best = ft.xi.find(p => p.bowl >= 30) || ft.xi.find(p => p.id !== ft.keeper.id) || ft.xi[0];
+      return best;
+    }
+
+    /* ----- one over ----- */
+    playOver(out) {
+      const inn = this.cur, bt = this.teams[inn.bat], ft = this.teams[inn.bowl];
+      if (inn.overs > 0 && this.shouldDeclare(inn)) {
+        inn.declared = true;
+        this.endInnings(out, 'declared');
+        return false;
+      }
+      const notes = [];
+      if (inn.ballAge >= 80 && ft.xi.some(p => p.type === 'pace' && p.bowl >= 65) && this.rng() < 0.85) {
+        inn.ballAge = 0;
+        notes.push('The new ball is taken.');
+      }
+      inn.mode = this.tempo(inn);
+      const bowler = this.pickBowler(inn, ft);
+      let brec = inn.bowlers[bowler.id];
+      if (!brec) { brec = inn.bowlers[bowler.id] = { p: bowler, balls: 0, runs: 0, wkts: 0, maidens: 0 }; inn.bowlOrder.push(bowler.id); }
+      const aids = this.aids();
+      const f = this.fat(ft, bowler);
+      const ctx = {
+        bowler, brec, ft, bt,
+        aid: bowler.type === 'spin' ? aids.spin : aids.pace * newBall(inn.ballAge),
+        fatM: fatMult(f, bowler),
+        mode: MODES[inn.mode]
+      };
+      const sess = this.session(), overNo = Math.floor(inn.balls / 6) + 1;
+      const balls = [];
+      let legal = 0, runs = 0, bowlerRuns = 0, wk = 0;
+      while (legal < 6 && !inn.ended) {
+        const r = this.ball(inn, ctx, notes);
+        balls.push(r.ball);
+        runs += r.runs; bowlerRuns += r.bowlerRuns; if (r.w) wk++;
+        if (r.legal) legal++;
+      }
+      if (legal === 6 && bowlerRuns === 0) brec.maidens++;
+      if (legal === 6 && !inn.ended) { const t = inn.striker; inn.striker = inn.nonStriker; inn.nonStriker = t; }
+      inn.overs++; inn.ballAge++; inn.prevBowlerId = bowler.id;
+      // fatigue bookkeeping
+      for (const p of ft.xi) {
+        if (p.bowl < 30) continue;
+        const pf = this.fat(ft, p);
+        if (p.id === bowler.id) { pf.tired += 1; pf.spell += 1; pf.rest = 0; }
+        else { pf.tired = Math.max(0, pf.tired - 0.6); pf.rest++; if (pf.rest >= (p.type === 'spin' ? 2 : 4)) pf.spell = 0; }
+      }
+      const bats = [inn.striker, inn.nonStriker].map(i => inn.batters[i]).filter(b => b && !b.out).map(b => ({
+        name: b.p.short, runs: b.runs, balls: b.balls, striker: b === inn.batters[inn.striker]
+      }));
+      out.push({
+        t: 'over', inn: inn.no, batTeam: bt.name, over: overNo, partial: legal < 6,
+        bowler: bowler.short, bowlerStyle: bowler.style,
+        figs: `${fmtOvers(brec.balls)}-${brec.maidens}-${brec.runs}-${brec.wkts}`,
+        balls, runs, wkts: wk, notes,
+        score: { runs: inn.runs, wkts: inn.wkts, overs: fmtOvers(inn.balls) },
+        bats, mode: inn.mode, modeLabel: MODES[inn.mode].label,
+        day: this.day, session: sess, target: inn.target
+      });
+      if (inn.ended) {
+        this.endInnings(out, inn.ended);
+      }
+      return true;
+    }
+
+    /* ----- one ball ----- */
+    ball(inn, ctx, notes) {
+      const rng = this.rng, st = inn.batters[inn.striker], br = ctx.brec, bowler = ctx.bowler, pit = this.pitch;
+      if (rng() < 0.017) {
+        const nb = rng() < 0.45;
+        inn.runs++; inn.extras[nb ? 'nb' : 'w']++; br.runs++; inn.part.runs++;
+        this.checkChase(inn);
+        return { legal: false, runs: 1, bowlerRuns: 1, ball: { k: nb ? 'nb' : 'wd', v: 1 } };
+      }
+      const A = interp(BAT_AVG, st.p.bat) * st.form;
+      const bw = interp(BOWL_AVG, bowler.bowl) / ctx.aid * ctx.fatM;
+      const M = A * bw / TUNE.L;
+      let r = (0.38 + 0.50 * st.p.aggr) * Math.pow(bw / 28, 0.35)
+        * (0.72 + 0.28 * (1 - Math.exp(-st.balls / 12))) * pit.run * ctx.mode.run;
+      r = clamp(r, 0.12, 1.35);
+      let cw = 0;
+      for (let i = inn.wktBalls.length - 1; i >= 0 && inn.balls - inn.wktBalls[i] <= 48; i--) cw++;
+      const collapse = Math.min(1.2, 1 + 0.05 * cw);
+      // a worn pitch plus a target on the board makes the last innings the hardest
+      const pressure = inn.no === 4 ? 1.16 : inn.no === 3 ? 1.04 : 1;
+      const p = clamp(TUNE.HZ * r / M * (1 + 1.2 * Math.exp(-st.balls / 14)) * pit.haz * ctx.mode.haz * collapse * pressure, 0.004, 0.30);
+
+      inn.balls++; this.matchBalls++; this.dayBalls++; br.balls++; st.balls++; inn.part.balls++;
+
+      if (rng() < p) return this.wicket(inn, ctx, st, notes);
+
+      if (rng() < 0.012) {
+        inn.runs++; inn.extras.lb++; inn.part.runs++;
+        const t = inn.striker; inn.striker = inn.nonStriker; inn.nonStriker = t;
+        this.checkChase(inn);
+        this.seqPush(inn, bowler.id, false);
+        return { legal: true, runs: 1, bowlerRuns: 0, ball: { k: 'lb', v: 1 } };
+      }
+      const runs = sampleRuns(r, rng());
+      st.runs += runs; inn.runs += runs; br.runs += runs; inn.part.runs += runs;
+      if (runs === 4) st.fours++;
+      if (runs === 6) st.sixes++;
+      for (const [th, label] of MILESTONES) {
+        if (st.runs >= th && st.mile < th) {
+          st.mile = th;
+          notes.push(`${st.p.short} reaches ${label} (${st.runs} off ${st.balls} balls).`);
+        }
+      }
+      if (runs % 2 === 1) { const t = inn.striker; inn.striker = inn.nonStriker; inn.nonStriker = t; }
+      this.seqPush(inn, bowler.id, false);
+      this.checkChase(inn);
+      return { legal: true, runs, bowlerRuns: runs, ball: { k: runs === 4 ? 'four' : runs === 6 ? 'six' : runs === 0 ? 'dot' : 'run', v: runs } };
+    }
+
+    seqPush(inn, id, w) { inn.seq.push({ id, w }); if (inn.seq.length > 3) inn.seq.shift(); }
+    checkChase(inn) { if (inn.no === 4 && inn.runs >= inn.target && !inn.ended) inn.ended = 'chased'; }
+
+    wicket(inn, ctx, st, notes) {
+      const rng = this.rng, bowler = ctx.bowler, ft = ctx.ft, br = ctx.brec;
+      const table = bowler.type === 'spin' ? SPIN_HOW : PACE_HOW;
+      let u = rng(), how = table[table.length - 1][0];
+      for (const [h, pr] of table) { if (u < pr) { how = h; break; } u -= pr; }
+      const keeper = ft.keeper;
+      const fielders = ft.xi.filter(p => p.id !== bowler.id && p.id !== keeper.id);
+      const pickF = () => fielders[Math.floor(rng() * fielders.length)];
+      let outIdx = inn.striker, text, credit = true;
+      switch (how) {
+        case 'b': text = `b ${bowler.short}`; break;
+        case 'lbw': text = `lbw b ${bowler.short}`; break;
+        case 'hw': text = `hit wicket b ${bowler.short}`; break;
+        case 'st': text = `st †${keeper.short} b ${bowler.short}`; this.addField(ft, keeper, 'st'); break;
+        case 'ct': text = `c †${keeper.short} b ${bowler.short}`; this.addField(ft, keeper, 'c'); break;
+        case 'cb': text = `c & b ${bowler.short}`; this.addField(ft, bowler, 'c'); break;
+        case 'cf': { const f = pickF() || keeper; text = `c ${f.short} b ${bowler.short}`; this.addField(ft, f, 'c'); break; }
+        case 'ro': {
+          const f = pickF() || keeper;
+          if (rng() < 0.3) outIdx = inn.nonStriker;
+          text = `run out (${f.short})`; credit = false; this.addField(ft, f, 'ro'); break;
+        }
+      }
+      const b = inn.batters[outIdx];
+      b.out = { how, text };
+      inn.wkts++;
+      inn.fow.push({ w: inn.wkts, runs: inn.runs, name: b.p.short, over: fmtOvers(inn.balls) });
+      inn.wktBalls.push(inn.balls);
+      if (credit) {
+        br.wkts++;
+        this.seqPush(inn, bowler.id, true);
+        const s = inn.seq;
+        if (s.length === 3 && s.every(x => x.w && x.id === bowler.id)) notes.push(`HAT-TRICK for ${bowler.short}!`);
+        if (br.wkts === 5) notes.push(`${bowler.short} takes a five-wicket haul.`);
+      } else this.seqPush(inn, bowler.id, false);
+      notes.unshift(`WICKET! ${b.p.short} ${text}, ${b.runs} (${b.balls}b${b.fours ? `, ${b.fours}x4` : ''}${b.sixes ? `, ${b.sixes}x6` : ''}).`);
+      inn.part = { runs: 0, balls: 0 };
+      if (inn.wkts >= 10) inn.ended = 'allout';
+      else {
+        const nb = inn.next++;
+        inn.batters[nb].in = true;
+        if (outIdx === inn.striker) inn.striker = nb; else inn.nonStriker = nb;
+      }
+      return { legal: true, runs: 0, bowlerRuns: 0, w: true, ball: { k: 'wkt', v: 0 } };
+    }
+
+    addField(team, p, kind) {
+      const f = team.field[p.id] || (team.field[p.id] = { c: 0, st: 0, ro: 0 });
+      f[kind]++;
+    }
+
+    /* ----- innings end, results ----- */
+    endInnings(out, reason) {
+      const inn = this.cur;
+      inn.end = reason;
+      this.cur = null;
+      const bt = this.teams[inn.bat], ft = this.teams[inn.bowl];
+      const score = `${inn.runs}${inn.wkts < 10 ? '/' + inn.wkts : ''}${reason === 'declared' ? 'd' : ''}`;
+      const why = reason === 'allout' ? 'all out' : reason === 'declared' ? 'declared' : reason === 'chased' ? 'target reached' : '';
+      out.push({ t: 'inningsEnd', no: inn.no, team: bt.name, runs: inn.runs, wkts: inn.wkts, reason,
+        text: `${bt.name} ${score} (${fmtOvers(inn.balls)} ov), ${why}.`, day: this.day });
+      const n = inn.no;
+      if (n === 2) {
+        const lead = this.total(this.firstBat) - inn.runs;
+        if (lead >= 200 && this.oversLeft() >= 120 && this.rng() < (lead >= 300 ? 0.8 : 0.55)) {
+          this.followOn = true;
+          out.push({ t: 'info', text: `${this.teams[this.firstBat].name} lead by ${lead} and enforce the follow-on.` });
+        }
+      }
+      if (n === 3 && this.followOn) {
+        const t1 = this.total(this.firstBat), t2 = this.total(1 - this.firstBat);
+        if (t2 < t1) {
+          this.finishWin(out, this.firstBat, `by an innings and ${t1 - t2} runs`);
+          return;
+        }
+      }
+      if (n === 4) {
+        const chaser = inn.bat;
+        if (reason === 'chased') {
+          this.finishWin(out, chaser, `by ${10 - inn.wkts} wicket${10 - inn.wkts === 1 ? '' : 's'}`);
+        } else if (reason === 'allout') {
+          const short = inn.target - 1 - inn.runs;
+          if (short === 0) this.finishTie(out);
+          else this.finishWin(out, 1 - chaser, `by ${short} run${short === 1 ? '' : 's'}`);
+        }
+      }
+    }
+
+    finishWin(out, idx, margin) {
+      this.finished = true;
+      this.result = { type: 'win', winner: idx, margin, text: `${this.teams[idx].name} win ${margin}` };
+      this.result.potm = this.playerOfMatch(idx);
+      out.push({ t: 'result', text: this.result.text, result: this.result });
+    }
+    finishTie(out) {
+      this.finished = true;
+      this.result = { type: 'tie', winner: null, text: 'Match tied!' };
+      this.result.potm = this.playerOfMatch(null);
+      out.push({ t: 'result', text: this.result.text, result: this.result });
+    }
+    finishDraw(out) {
+      this.finished = true;
+      this.cur = null;
+      this.result = { type: 'draw', winner: null, text: 'Match drawn' };
+      this.result.potm = this.playerOfMatch(null);
+      out.push({ t: 'result', text: 'Stumps on day 5. Match drawn.', result: this.result });
+    }
+
+    playerOfMatch(winnerIdx) {
+      const pts = {}, info = {};
+      const add = (p, team, v) => { pts[p.id] = (pts[p.id] || 0) + v; info[p.id] = { p, team }; };
+      for (const inn of this.inns) {
+        for (const b of inn.batters) if (b.in) add(b.p, inn.bat, b.runs + (b.runs >= 100 ? 20 : b.runs >= 50 ? 8 : 0));
+        for (const id in inn.bowlers) { const r = inn.bowlers[id]; add(r.p, inn.bowl, r.wkts * 20 + (r.wkts >= 5 ? 15 : 0)); }
+      }
+      for (const t of this.teams) for (const id in t.field) { const p = t.xi.find(x => x.id === id); const f = t.field[id]; add(p, t.idx, f.c * 5 + f.st * 6 + f.ro * 4); }
+      let best = null;
+      for (const id in pts) {
+        if (winnerIdx != null && info[id].team !== winnerIdx) continue;
+        if (!best || pts[id] > pts[best]) best = id;
+      }
+      if (!best) return null;
+      const p = info[best].p, tIdx = info[best].team;
+      const bats = [], bowls = [];
+      for (const inn of this.inns) {
+        const b = inn.batters.find(x => x.p.id === best && x.in);
+        if (b) bats.push(b.runs + (b.out ? '' : '*'));
+        const r = inn.bowlers[best];
+        if (r) bowls.push(`${r.wkts}/${r.runs}`);
+      }
+      const parts = [];
+      if (bats.length) parts.push(bats.join(' & ') + ' runs');
+      if (bowls.length) parts.push(bowls.join(' & ') + ' bowling');
+      return { name: p.name, team: this.teams[tIdx].name, line: parts.join(', ') };
+    }
+
+    /* ----- time: sessions, stumps ----- */
+    postOver(out) {
+      if (this.finished) return;
+      const sc = () => this.scoreLines();
+      if (!this.lunchDone && this.dayBalls >= 180 && this.dayLimitBalls > 180) {
+        this.lunchDone = true;
+        out.push({ t: 'break', kind: 'lunch', text: `Lunch on day ${this.day}`, lines: sc(), day: this.day });
+      }
+      if (!this.teaDone && this.dayBalls >= 360 && this.dayLimitBalls > 360) {
+        this.teaDone = true;
+        out.push({ t: 'break', kind: 'tea', text: `Tea on day ${this.day}`, lines: sc(), day: this.day });
+      }
+      if (this.dayBalls >= this.dayLimitBalls) {
+        out.push({ t: 'break', kind: 'stumps', text: `Stumps on day ${this.day}`, lines: sc(), day: this.day });
+        this.startDay(out);
+      }
+    }
+
+    scoreLines() {
+      return this.teams.map(t => {
+        const parts = this.inns.filter(i => i.bat === t.idx).map(i =>
+          `${i.runs}${i.wkts < 10 ? '/' + i.wkts : ''}${i.end === 'declared' ? 'd' : ''}${i === this.cur ? '*' : ''}`);
+        return { name: t.name, text: parts.length ? parts.join(' & ') : 'yet to bat' };
+      });
+    }
+
+    /* ----- snapshot for the UI ----- */
+    snapshot() {
+      const cur = this.cur;
+      const rr = cur && cur.balls ? cur.runs / (cur.balls / 6) : 0;
+      let situation = '';
+      if (cur) {
+        if (cur.no === 4) {
+          const need = cur.target - cur.runs;
+          situation = `Need ${need} to win, ${fmtOvers(Math.round(this.oversLeft() * 6))} overs left`;
+        } else if (cur.no >= 2) {
+          const diff = this.total(cur.bat) - this.total(cur.bowl);
+          situation = diff > 0 ? `Lead by ${diff}` : diff < 0 ? `Trail by ${-diff}` : 'Scores level';
+        }
+      }
+      return {
+        day: this.day, session: this.session(), oversLeft: Math.round(this.oversLeft()),
+        finished: this.finished, result: this.result, pitch: this.pitch.name, lines: this.scoreLines(),
+        cur: cur ? {
+          no: cur.no, bat: this.teams[cur.bat].name, runs: cur.runs, wkts: cur.wkts, overs: fmtOvers(cur.balls),
+          rr: rr, mode: MODES[cur.mode].label, situation, target: cur.target,
+          partnership: cur.part,
+          batters: [cur.striker, cur.nonStriker].map(i => cur.batters[i]).filter(b => b && !b.out).map(b => ({
+            name: b.p.short, runs: b.runs, balls: b.balls, striker: b === cur.batters[cur.striker]
+          }))
+        } : null
+      };
+    }
+
+    scorecards() {
+      return this.inns.map(inn => ({
+        no: inn.no, team: this.teams[inn.bat].name, vs: this.teams[inn.bowl].name,
+        runs: inn.runs, wkts: inn.wkts, overs: fmtOvers(inn.balls), end: inn.end, live: inn === this.cur,
+        extras: inn.extras, extrasTotal: inn.extras.b + inn.extras.lb + inn.extras.w + inn.extras.nb,
+        batters: inn.batters.map(b => ({
+          name: b.p.name, short: b.p.short, runs: b.runs, balls: b.balls, fours: b.fours, sixes: b.sixes,
+          in: b.in, out: b.out ? b.out.text : null,
+          sr: b.balls ? (100 * b.runs / b.balls).toFixed(1) : '-'
+        })),
+        fow: inn.fow,
+        bowlers: inn.bowlOrder.map(id => {
+          const r = inn.bowlers[id];
+          return { name: r.p.short, overs: fmtOvers(r.balls), maidens: r.maidens, runs: r.runs, wkts: r.wkts,
+            econ: r.balls ? (r.runs / (r.balls / 6)).toFixed(2) : '-' };
+        })
+      }));
+    }
+  }
+
+  return { Match, PITCHES, MODES, TUNE, mulberry32, interp, BAT_AVG, BOWL_AVG, fmtOvers };
+})();
+
+;
+// app.js: screens and controls. Uses globals from players.js, profiles.js and engine.js.
+(function () {
+  'use strict';
+  const $ = (s, r) => (r || document).querySelector(s);
+  const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+  const clear = n => { while (n.firstChild) n.removeChild(n.firstChild); };
+  const avg = a => a.reduce((x, y) => x + y, 0) / (a.length || 1);
+
+  const FILTERS = [['all', 'All'], ['opener', 'Openers'], ['batter', 'Batters'], ['wk', 'Keepers'], ['allrounder', 'All-rounders'], ['spinner', 'Spinners'], ['pacer', 'Pacers']];
+  const PITCH_ORDER = ['random', 'balanced', 'flat', 'green', 'dusty', 'bouncy'];
+  const SPEEDS = { slow: 1500, normal: 650, fast: 150 };
+  const STORE_KEY = 'dreamtest.v1';
+  const DEFAULT_A = ['hobbs', 'gavaskar', 'bradman', 'tendulkar', 'lara', 'sobers_ar', 'gilchrist', 'imran', 'warne', 'marshall', 'mcgrath'];
+  const DEFAULT_B = ['hayden', 'greenidge', 'ssmith', 'richards', 'kallis_ar', 'sangakkara_wk', 'botham', 'murali', 'wasim', 'steyn', 'ambrose'];
+  const ORD = ['', '1st', '2nd', '3rd', '4th'];
+
+  const state = {
+    teams: [{ name: 'Team A', ids: DEFAULT_A.slice(), manual: false }, { name: 'Team B', ids: DEFAULT_B.slice(), manual: false }],
+    target: 0, filter: 'all', query: '', pane: 'pool', example: true,
+    settings: { pitch: 'random', toss: 'random', rain: true },
+    match: null, setup: null, playing: false, speed: 'normal', pauseBreaks: true, tab: 'live', timer: null, lastOver: null
+  };
+
+  /* ---------- saved squads ---------- */
+  function loadSaved() {
+    try {
+      const raw = localStorage.getItem(STORE_KEY);
+      if (!raw) return;
+      const s = JSON.parse(raw);
+      if (s && Array.isArray(s.teams) && s.teams.length === 2) {
+        const seen = new Set(), teams = [];
+        for (const t of s.teams) {
+          const ids = [];
+          for (const id of (t.ids || [])) {
+            const p = PLAYER_BY_ID[id];
+            if (p && !seen.has(p.key) && ids.length < 11) { seen.add(p.key); ids.push(id); }
+          }
+          teams.push({ name: String(t.name || '').slice(0, 24), ids, manual: !!t.manual });
+        }
+        state.teams = teams; state.example = false;
+      }
+      const st = s && s.settings;
+      if (st) {
+        if (PITCH_ORDER.includes(st.pitch)) state.settings.pitch = st.pitch;
+        if (['random', 'a', 'b'].includes(st.toss)) state.settings.toss = st.toss;
+        if (typeof st.rain === 'boolean') state.settings.rain = st.rain;
+      }
+    } catch (e) { /* storage unavailable */ }
+  }
+  function save() { try { localStorage.setItem(STORE_KEY, JSON.stringify({ teams: state.teams, settings: state.settings })); } catch (e) { /* ignore */ } }
+
+  /* ---------- squad helpers ---------- */
+  const squadPlayers = t => t.ids.map(id => PLAYER_BY_ID[id]).filter(Boolean);
+  const orderedPlayers = t => t.manual ? squadPlayers(t) : autoOrder(squadPlayers(t));
+  const teamLabel = i => (state.teams[i].name || '').trim() || ('Team ' + 'AB'[i]);
+  function takenBy(key) {
+    for (let i = 0; i < 2; i++) if (squadPlayers(state.teams[i]).some(p => p.key === key)) return i;
+    return -1;
+  }
+  function describe(p) {
+    const base = ROLE_LABEL[p.role];
+    if (p.role === 'spinner' || p.role === 'pacer' || p.role === 'allrounder') return base + ', ' + (STYLE_NAME[p.style] || '').toLowerCase();
+    return base;
+  }
+  function statLine(p) {
+    if (p.role === 'allrounder') return 'Bat ' + p.bat + ', bowl ' + p.bowl;
+    if (p.role === 'wk' || p.role === 'spinner' || p.role === 'pacer') return 'Bat ' + p.bat;
+    return '';
+  }
+  function strength(players) {
+    if (!players.length) return { bat: 0, bowl: 0 };
+    const bats = players.slice(0, 7).map(p => p.bat);
+    const bowls = players.filter(canBowl).map(p => p.bowl).sort((a, b) => b - a).slice(0, 5);
+    return { bat: Math.round(avg(bats)), bowl: bowls.length ? Math.round(avg(bowls)) : 0 };
+  }
+  function touched() { state.example = false; save(); }
+
+  function addPlayer(p) {
+    if (takenBy(p.key) >= 0) return;
+    let ti = state.target;
+    if (state.teams[ti].ids.length >= 11) {
+      if (state.teams[1 - ti].ids.length < 11) { ti = 1 - ti; state.target = ti; } else return;
+    }
+    state.teams[ti].ids.push(p.id);
+    if (state.teams[ti].ids.length >= 11 && state.teams[1 - ti].ids.length < 11) state.target = 1 - ti;
+    touched(); renderSetup();
+  }
+  function removeAt(ti, idx) {
+    const t = state.teams[ti];
+    if (!t.manual) t.ids = orderedPlayers(t).map(p => p.id);
+    t.ids.splice(idx, 1);
+    state.target = ti; touched(); renderSetup();
+  }
+  function move(ti, idx, dir) {
+    const t = state.teams[ti];
+    if (!t.manual) { t.ids = orderedPlayers(t).map(p => p.id); t.manual = true; }
+    const j = idx + dir;
+    if (j < 0 || j >= t.ids.length) return;
+    const x = t.ids[idx]; t.ids[idx] = t.ids[j]; t.ids[j] = x;
+    touched(); renderSetup();
+  }
+  function fillTeam(i) {
+    const other = new Set(squadPlayers(state.teams[1 - i]).map(p => p.key));
+    const xi = autoPick(Math.random, other);
+    state.teams[i].ids = xi.map(p => p.id); state.teams[i].manual = false;
+    touched(); renderSetup();
+  }
+
+  /* ---------- setup screens ---------- */
+  function renderPanes() {
+    const nav = $('#panes'); clear(nav);
+    const items = [['a', teamLabel(0) + ' ' + state.teams[0].ids.length], ['pool', 'Players'], ['b', teamLabel(1) + ' ' + state.teams[1].ids.length], ['match', 'Match']];
+    items.forEach(([id, label]) => {
+      const b = el('button', '', label); b.type = 'button';
+      b.setAttribute('aria-pressed', String(state.pane === id));
+      b.addEventListener('click', () => { state.pane = id; $('#setup').dataset.pane = id; renderPanes(); });
+      nav.appendChild(b);
+    });
+    $('#setup').dataset.pane = state.pane;
+  }
+
+  function renderSquad(i) {
+    const root = $(i === 0 ? '#pane-a' : '#pane-b'); clear(root);
+    const t = state.teams[i], players = orderedPlayers(t), v = validateXI(players);
+    const card = el('div', 'squad');
+    const head = el('div', 'squad-head');
+    head.appendChild(el('span', 'swatch t' + i));
+    const input = el('input', 'tname'); input.type = 'text'; input.maxLength = 24; input.value = t.name; input.id = 'name-' + i;
+    input.placeholder = 'Team ' + 'AB'[i]; input.setAttribute('aria-label', 'Team ' + 'AB'[i] + ' name');
+    input.addEventListener('input', () => { t.name = input.value; touched(); renderPanes(); renderTarget(); renderMatchPane(); });
+    head.appendChild(input);
+    head.appendChild(el('span', 'cnt', players.length + '/11'));
+    card.appendChild(head);
+    card.appendChild(el('p', 'order-h', 'Batting order. The first two open.'));
+    const ul = el('ul', 'slots');
+    for (let k = 0; k < 11; k++) {
+      const p = players[k];
+      const li = el('li', 'slot' + (p ? '' : ' empty'));
+      li.appendChild(el('span', 'no', String(k + 1)));
+      const mid = el('div');
+      if (p) { mid.appendChild(el('span', 'sname', p.name)); mid.appendChild(el('span', 'ssub', describe(p))); }
+      else mid.appendChild(el('span', 'sname', 'Open slot'));
+      li.appendChild(mid);
+      if (p) {
+        li.appendChild(el('span', 'srate', String(p.rating)));
+        const act = el('div', 'sact');
+        [['▲', 'Move up', () => move(i, k, -1), k === 0], ['▼', 'Move down', () => move(i, k, 1), k === players.length - 1], ['×', 'Remove', () => removeAt(i, k), false]].forEach(([ch, label, fn, dis]) => {
+          const b = el('button', 'iconbtn', ch); b.type = 'button'; b.disabled = dis;
+          b.setAttribute('aria-label', label + ' ' + p.name); b.addEventListener('click', fn); act.appendChild(b);
+        });
+        li.appendChild(act);
+      } else { li.appendChild(el('span')); li.appendChild(el('span')); }
+      ul.appendChild(li);
+    }
+    card.appendChild(ul);
+    const s = strength(players);
+    const meters = el('div', 'meters');
+    [['Batting', s.bat], ['Bowling', s.bowl]].forEach(([n, val]) => {
+      const m = el('div', 'meter t' + i); m.appendChild(el('span', '', n));
+      const bar = el('div', 'bar'), fill = el('i'); fill.style.width = Math.max(0, Math.min(100, val)) + '%'; bar.appendChild(fill); m.appendChild(bar);
+      m.appendChild(el('b', '', val ? String(val) : '-')); meters.appendChild(m);
+    });
+    card.appendChild(meters);
+    card.appendChild(el('p', 'status ' + (v.ok ? 'ok' : 'bad'), v.ok ? 'Ready to play.' : v.problems.join('. ') + '.'));
+    const acts = el('div', 'squad-acts');
+    [['Auto-pick', () => fillTeam(i), false], ['Auto order', () => { t.manual = false; touched(); renderSetup(); }, !t.manual], ['Clear', () => { t.ids = []; t.manual = false; state.target = i; touched(); renderSetup(); }, !t.ids.length]].forEach(([label, fn, dis]) => {
+      const b = el('button', 'btn sm', label); b.type = 'button'; b.disabled = dis; b.addEventListener('click', fn); acts.appendChild(b);
+    });
+    card.appendChild(acts);
+    root.appendChild(card);
+  }
+
+  function renderTarget() {
+    const root = $('#target'); clear(root);
+    [0, 1].forEach(i => {
+      const b = el('button', 't' + i, teamLabel(i) + ' ' + state.teams[i].ids.length + '/11'); b.type = 'button';
+      b.setAttribute('aria-pressed', String(state.target === i));
+      b.addEventListener('click', () => { state.target = i; renderTarget(); });
+      root.appendChild(b);
+    });
+  }
+  function renderFilters() {
+    const root = $('#filters'); clear(root);
+    FILTERS.forEach(([id, label]) => {
+      const n = id === 'all' ? ALL_PLAYERS.length : ALL_PLAYERS.filter(p => p.role === id).length;
+      const b = el('button', '', label + ' ' + n); b.type = 'button';
+      b.setAttribute('aria-pressed', String(state.filter === id));
+      b.addEventListener('click', () => { state.filter = id; renderFilters(); renderPool(); });
+      root.appendChild(b);
+    });
+  }
+  function renderPool() {
+    const ul = $('#plist'); clear(ul);
+    const q = state.query.trim().toLowerCase();
+    let list = ALL_PLAYERS.filter(p => (state.filter === 'all' || p.role === state.filter) && (!q || p.name.toLowerCase().includes(q)));
+    // available players first, then by rating
+    list = list.slice().sort((a, b) => ((takenBy(a.key) >= 0) - (takenBy(b.key) >= 0)) || (state.filter === 'all' ? (b.rating - a.rating || a.name.localeCompare(b.name)) : 0));
+    if (!list.length) { ul.appendChild(el('li', 'empty-list', 'No players match. Clear the search or pick another role.')); return; }
+    const full = state.teams[0].ids.length >= 11 && state.teams[1].ids.length >= 11;
+    list.forEach(p => {
+      const li = el('li'); const taken = takenBy(p.key);
+      const b = el('button', 'prow'); b.type = 'button'; b.disabled = taken >= 0 || full;
+      b.appendChild(el('span', 'prate', String(p.rating)));
+      const mid = el('span'); mid.appendChild(el('span', 'pname', p.name)); mid.appendChild(el('span', 'psub', describe(p))); b.appendChild(mid);
+      if (taken >= 0) b.appendChild(el('span', 'ptag t' + taken, teamLabel(taken)));
+      else b.appendChild(el('span', 'pstat', statLine(p)));
+      b.addEventListener('click', () => addPlayer(p));
+      li.appendChild(b); ul.appendChild(li);
+    });
+  }
+
+  function renderMatchPane() {
+    const root = $('#pane-match'); clear(root);
+    const box = el('div', 'matchset');
+    const pr = el('div', 'set-row'); pr.appendChild(el('h3', '', 'Pitch'));
+    const grid = el('div', 'pitches');
+    PITCH_ORDER.forEach(k => {
+      const info = k === 'random' ? { name: 'Random', blurb: 'Revealed at the toss' } : Engine.PITCHES[k];
+      const b = el('button', 'pitch'); b.type = 'button'; b.setAttribute('aria-pressed', String(state.settings.pitch === k));
+      b.appendChild(el('b', '', info.name)); b.appendChild(el('span', '', info.blurb));
+      b.addEventListener('click', () => { state.settings.pitch = k; save(); renderMatchPane(); });
+      grid.appendChild(b);
+    });
+    pr.appendChild(grid); box.appendChild(pr);
+
+    const tr = el('div', 'set-row'); tr.appendChild(el('h3', '', 'Toss'));
+    const seg = el('div', 'seg'); seg.setAttribute('role', 'group'); seg.setAttribute('aria-label', 'Toss');
+    [['random', 'Coin toss'], ['a', teamLabel(0) + ' bat first'], ['b', teamLabel(1) + ' bat first']].forEach(([id, label]) => {
+      const b = el('button', id === 'a' ? 't0' : id === 'b' ? 't1' : '', label); b.type = 'button'; b.setAttribute('aria-pressed', String(state.settings.toss === id));
+      b.addEventListener('click', () => { state.settings.toss = id; save(); renderMatchPane(); }); seg.appendChild(b);
+    });
+    tr.appendChild(seg); box.appendChild(tr);
+
+    const wr = el('div', 'set-row');
+    const lab = el('label', 'chk'); const cb = el('input'); cb.type = 'checkbox'; cb.id = 'chk-rain'; cb.checked = state.settings.rain;
+    cb.addEventListener('change', () => { state.settings.rain = cb.checked; save(); });
+    lab.appendChild(cb); lab.appendChild(document.createTextNode(' Rain can interrupt play')); wr.appendChild(lab); box.appendChild(wr);
+
+    const vs = [0, 1].map(i => validateXI(orderedPlayers(state.teams[i])));
+    const row = el('div', 'start-row');
+    const start = el('button', 'btn primary big', 'Start the Test'); start.type = 'button'; start.disabled = !(vs[0].ok && vs[1].ok);
+    start.addEventListener('click', startMatch); row.appendChild(start);
+    const fill = el('button', 'btn', 'Auto-pick both'); fill.type = 'button';
+    fill.addEventListener('click', () => { fillTeam(0); fillTeam(1); }); row.appendChild(fill);
+    let msg = 'Both squads are ready.';
+    const bad = [0, 1].find(i => !vs[i].ok);
+    if (bad != null) msg = teamLabel(bad) + ': ' + vs[bad].problems[0] + '.';
+    row.appendChild(el('p', 'start-msg ' + (bad != null ? 'status bad' : 'status ok'), msg));
+    box.appendChild(row);
+    root.appendChild(box);
+  }
+
+  function renderSetup() {
+    $('#example-note').hidden = !state.example;
+    renderPanes(); renderSquad(0); renderSquad(1); renderTarget(); renderFilters(); renderPool(); renderMatchPane();
+  }
+
+  /* ---------- views ---------- */
+  function showView(name, back) {
+    const changed = state.view !== name;
+    state.view = name;
+    ['home', 'setup', 'room', 'match'].forEach(v => { const n = $('#' + v); if (n) n.hidden = v !== name; });
+    const b = $('#btn-quit');
+    if (back) { b.hidden = false; b.textContent = back.label; state.back = back.fn; } else { b.hidden = true; state.back = null; }
+    if (changed) window.scrollTo(0, 0);
+  }
+  function goHome() { showView('home'); }
+  function goSetup() { showView('setup', { label: 'Home', fn: goHome }); renderSetup(); }
+
+  /* ---------- starting and driving a match ---------- */
+  function startMatch() {
+    const vs = [0, 1].map(i => validateXI(orderedPlayers(state.teams[i])));
+    if (!vs[0].ok || !vs[1].ok) return;
+    const names = [teamLabel(0), teamLabel(1)];
+    if (names[0].toLowerCase() === names[1].toLowerCase()) names[1] += ' (2)';
+    state.setup = {
+      teams: [0, 1].map(i => ({ name: names[i], players: orderedPlayers(state.teams[i]) })),
+      opts: { pitch: state.settings.pitch, firstBat: state.settings.toss === 'a' ? 0 : state.settings.toss === 'b' ? 1 : undefined, weather: state.settings.rain }
+    };
+    launch();
+  }
+  function launch() {
+    clearTimeout(state.timer); state.timer = null;
+    const s = state.setup;
+    state.match = new Engine.Match(s.teams[0], s.teams[1], Object.assign({}, s.opts));
+    state.lastOver = null; state.tab = 'live';
+    showView('match', { label: 'Back to teams', fn: quit });
+    $('#roominfo').hidden = true;
+    $('#resultbox').hidden = true; clear($('#feed')); clear($('#cards'));
+    setTab('live');
+    refresh();
+    setPlaying(true);
+    window.scrollTo(0, 0);
+  }
+  function quit() {
+    clearTimeout(state.timer); state.timer = null; state.playing = false; state.match = null;
+    goSetup();
+  }
+  // Used by online rooms: show a match that someone else drives.
+  function launchMatch(m, back) {
+    clearTimeout(state.timer); state.timer = null; state.playing = false;
+    state.match = m; state.lastOver = null; state.tab = 'live';
+    showView('match', back);
+    $('#resultbox').hidden = true; clear($('#feed')); clear($('#cards'));
+    setTab('live'); refresh();
+  }
+  function setPlaying(v) {
+    clearTimeout(state.timer); state.timer = null;
+    state.playing = v && !!state.match && !state.match.finished;
+    if (state.playing) state.timer = setTimeout(tick, 80);
+    updateControls();
+  }
+  function tick() {
+    state.timer = null;
+    const m = state.match;
+    if (!state.playing || !m || m.finished) return;
+    const out = m.step();
+    addEvents(out, false); refresh();
+    if (m.finished) { state.playing = false; showResult(); updateControls(); return; }
+    if (state.pauseBreaks && out.some(e => e.t === 'break' || e.t === 'inningsEnd')) { state.playing = false; updateControls(); return; }
+    state.timer = setTimeout(tick, SPEEDS[state.speed]);
+  }
+  function stepOnce() {
+    const m = state.match; if (!m || m.finished) return;
+    setPlaying(false);
+    const out = m.step(); addEvents(out, false); refresh();
+    if (m.finished) showResult();
+    updateControls();
+  }
+  function skip(kind) {
+    const m = state.match; if (!m || m.finished) return;
+    setPlaying(false);
+    const out = m.run(kind); addEvents(out, true); refresh();
+    if (m.finished) showResult();
+    updateControls();
+  }
+
+  /* ---------- board, crease, controls ---------- */
+  function scoreText(i) {
+    return state.match.inns.filter(x => x.bat === i);
+  }
+  function updateBoard() {
+    const m = state.match, snap = m.snapshot();
+    [0, 1].forEach(i => {
+      const root = $('#bt' + i);
+      $('.bname span', root).textContent = m.teams[i].name;
+      root.classList.toggle('batting', !!(m.cur && m.cur.bat === i));
+      const sc = $('.bscore', root); clear(sc);
+      const inns = scoreText(i);
+      if (!inns.length) { sc.appendChild(el('span', 'yet', 'yet to bat')); return; }
+      inns.forEach((inn, k) => {
+        if (k) sc.appendChild(el('span', 'amp', '&'));
+        sc.appendChild(el('span', 'sc' + (k === inns.length - 1 ? ' cur' : ''), inn.runs + (inn.wkts < 10 ? '/' + inn.wkts : '') + (inn.end === 'declared' ? 'd' : '')));
+      });
+    });
+    const day = Math.max(1, Math.min(5, m.day));
+    $('#bday').textContent = 'Day ' + day;
+    if (m.finished) { $('#bsess').textContent = 'Match over'; $('#bleft').textContent = ''; $('#bsit').textContent = m.result.text; }
+    else {
+      $('#bsess').textContent = 'Session ' + snap.session;
+      $('#bleft').textContent = Math.max(0, Math.floor((m.dayLimitBalls - m.dayBalls) / 6)) + ' overs left today';
+      $('#bsit').textContent = snap.cur ? (snap.cur.situation || (snap.cur.bat + ' batting')) : '';
+    }
+    $('#bpitch').textContent = 'Pitch: ' + m.pitch.name;
+    const pips = $('#pips'); clear(pips);
+    const p = m.finished ? (day - 1) * 3 + 3 : (day - 1) * 3 + (snap.session - 1);
+    for (let d = 0; d < 5; d++) {
+      const g = el('div', 'dayp'); g.appendChild(el('em', '', String(d + 1)));
+      for (let s = 0; s < 3; s++) { const k = d * 3 + s; g.appendChild(el('span', 'pip' + (k < p ? ' done' : k === p ? ' now' : ''))); }
+      pips.appendChild(g);
+    }
+  }
+  function updateCrease() {
+    const m = state.match, snap = m.snapshot(), c = snap.cur, root = $('#crease');
+    if (!c || !m.cur) { root.hidden = true; return; }
+    root.hidden = false;
+    const bat = $('#cr-bat'); clear(bat);
+    c.batters.forEach(b => {
+      const p = el('p'); p.appendChild(el('span', '', b.name + (b.striker ? ' *' : ''))); p.appendChild(el('b', '', b.runs + ' (' + b.balls + ')')); bat.appendChild(p);
+    });
+    const bowl = $('#cr-bowl'); clear(bowl);
+    const lo = state.lastOver;
+    if (lo && lo.inn === c.no) { const p = el('p'); p.appendChild(el('span', '', lo.bowler)); p.appendChild(el('b', '', lo.figs)); bowl.appendChild(p); }
+    else bowl.appendChild(el('p', 'muted', 'New bowler to come'));
+    const meta = $('#cr-meta'); clear(meta);
+    const rr = c.overs === '0.0' ? 0 : c.rr;
+    [['Partnership', c.partnership.runs + ' (' + c.partnership.balls + ')'], ['Run rate', rr.toFixed(2)], ['Tempo', c.mode]].forEach(([k, v]) => {
+      const p = el('p'); p.appendChild(el('span', '', k)); p.appendChild(el('b', '', v)); meta.appendChild(p);
+    });
+  }
+  function updateControls() {
+    const m = state.match; if (!m) return;
+    const done = m.finished;
+    const play = $('#btn-play');
+    play.textContent = state.playing ? 'Pause' : 'Resume';
+    play.disabled = done;
+    $('#btn-step').disabled = done;
+    $$('[data-skip]').forEach(b => { b.disabled = done; });
+    $$('#speed button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.speed === state.speed)));
+    $('#chk-break').checked = state.pauseBreaks;
+  }
+  function refresh() { updateBoard(); updateCrease(); updateControls(); }
+
+  /* ---------- commentary ---------- */
+  function rowEl(cls, text) { const d = el('div', 'row ' + cls); d.appendChild(el('p', '', text)); return d; }
+  function chipEl(b) {
+    const c = el('span', 'chip'); let t;
+    switch (b.k) {
+      case 'dot': c.classList.add('dot'); t = '·'; c.title = 'Dot ball'; break;
+      case 'run': t = String(b.v); c.title = b.v + (b.v === 1 ? ' run' : ' runs'); break;
+      case 'four': c.classList.add('four'); t = '4'; c.title = 'Four'; break;
+      case 'six': c.classList.add('six'); t = '6'; c.title = 'Six'; break;
+      case 'wkt': c.classList.add('wkt'); t = 'W'; c.title = 'Wicket'; break;
+      default: c.classList.add('ex'); t = b.k; c.title = b.k === 'wd' ? 'Wide' : b.k === 'nb' ? 'No ball' : 'Leg bye';
+    }
+    c.textContent = t; return c;
+  }
+  function overEl(e) {
+    const d = el('article', 'over');
+    const h = el('div', 'oh');
+    h.appendChild(el('span', 'on', 'Over ' + e.over));
+    h.appendChild(el('span', 'obowl', e.bowler));
+    h.appendChild(el('span', 'ofig', e.figs));
+    if (!e.partial && e.runs === 0) h.appendChild(el('span', 'otag', 'Maiden'));
+    else if (e.runs >= 12) h.appendChild(el('span', 'otag', e.runs + ' off the over'));
+    h.appendChild(el('span', 'osc', e.score.runs + '/' + e.score.wkts));
+    d.appendChild(h);
+    const balls = el('div', 'balls'); e.balls.forEach(b => balls.appendChild(chipEl(b))); d.appendChild(balls);
+    e.notes.forEach(n => d.appendChild(el('p', 'onote' + (/WICKET|HAT-TRICK/.test(n) ? ' w' : ''), n)));
+    return d;
+  }
+  function skippedEl(b) {
+    const d = el('div', 'skipped');
+    d.appendChild(el('strong', '', (b.from === b.to ? 'Over ' + b.from : 'Overs ' + b.from + ' to ' + b.to) + ' skipped'));
+    d.appendChild(el('span', 'muted', b.runs + ' runs, ' + b.wkts + (b.wkts === 1 ? ' wicket' : ' wickets') + ' in ' + b.n + (b.n === 1 ? ' over' : ' overs')));
+    if (b.notes.length) {
+      const ul = el('ul'); b.notes.slice(0, 14).forEach(n => ul.appendChild(el('li', '', n)));
+      if (b.notes.length > 14) ul.appendChild(el('li', '', '+' + (b.notes.length - 14) + ' more events'));
+      d.appendChild(ul);
+    }
+    return d;
+  }
+  function eventEl(e) {
+    switch (e.t) {
+      case 'toss': { const d = el('div', 'row toss'); d.appendChild(el('p', '', e.text)); d.appendChild(el('p', 'sub', 'Pitch: ' + e.pitch + '. ' + e.pitchBlurb + '.')); return d; }
+      case 'day': return rowEl('day', e.text);
+      case 'innings': return rowEl('innstart', e.text);
+      case 'inningsEnd': return rowEl('innend', e.text);
+      case 'info': return rowEl('info', e.text);
+      case 'result': return rowEl('info', e.text);
+      case 'break': {
+        const d = el('div', 'brk'); d.appendChild(el('h3', '', e.text));
+        e.lines.forEach(l => { const p = el('p'); p.appendChild(el('b', '', l.name)); p.appendChild(el('span', '', l.text)); d.appendChild(p); });
+        return d;
+      }
+      case 'over': state.lastOver = e; return overEl(e);
+      default: return null;
+    }
+  }
+  function addEvents(list, condense) {
+    const feed = $('#feed'), nodes = []; let bucket = null, lastOver = -1;
+    if (condense) list.forEach((e, i) => { if (e.t === 'over') lastOver = i; });
+    const flush = () => { if (bucket) nodes.push(skippedEl(bucket)); bucket = null; };
+    list.forEach((e, i) => {
+      if (e.t === 'over' && condense && i < lastOver) {
+        if (!bucket) bucket = { n: 0, runs: 0, wkts: 0, notes: [], from: e.over, to: e.over };
+        bucket.n++; bucket.runs += e.runs; bucket.wkts += e.wkts; bucket.to = e.over;
+        e.notes.forEach(n => { if (/WICKET|HAT-TRICK|reaches|five-wicket/.test(n)) bucket.notes.push(n); });
+        return;
+      }
+      flush();
+      const n = eventEl(e); if (n) nodes.push(n);
+    });
+    flush();
+    nodes.forEach(n => feed.insertBefore(n, feed.firstChild));
+    while (feed.childElementCount > 260) feed.removeChild(feed.lastChild);
+    if (state.tab === 'cards') renderCards();
+  }
+
+  /* ---------- scorecards ---------- */
+  function table(headers, rows, totalRow) {
+    const wrap = el('div', 'tw'), t = el('table'), th = el('thead'), hr = el('tr');
+    headers.forEach(h => hr.appendChild(el('th', '', h))); th.appendChild(hr); t.appendChild(th);
+    const tb = el('tbody');
+    rows.forEach(r => {
+      const tr = el('tr');
+      r.forEach(c => { const td = el('td'); if (c instanceof Node) td.appendChild(c); else td.textContent = c; tr.appendChild(td); });
+      tb.appendChild(tr);
+    });
+    t.appendChild(tb); wrap.appendChild(t); return wrap;
+  }
+  function renderCards() {
+    const root = $('#cards'); clear(root);
+    const sc = state.match.scorecards();
+    if (!sc.length) { root.appendChild(el('p', 'muted', 'The scorecard appears once play starts.')); return; }
+    sc.forEach(inn => {
+      const sec = el('section', 'card');
+      const h = el('h3'); h.appendChild(el('span', '', ORD[inn.no] + ' innings, ' + inn.team));
+      h.appendChild(el('span', 'tot', inn.runs + (inn.wkts < 10 ? '/' + inn.wkts : '') + (inn.end === 'declared' ? 'd' : '') + ' (' + inn.overs + ' ov)' + (inn.live ? ', in progress' : '')));
+      sec.appendChild(h);
+      const rows = inn.batters.filter(b => b.in).map(b => {
+        const nm = el('span'); nm.appendChild(document.createTextNode(b.name));
+        nm.appendChild(el('small', '', b.out || 'not out'));
+        return [nm, String(b.runs), String(b.balls), String(b.fours), String(b.sixes), String(b.sr)];
+      });
+      const ex = inn.extras;
+      rows.push(['Extras (b ' + ex.b + ', lb ' + ex.lb + ', w ' + ex.w + ', nb ' + ex.nb + ')', String(inn.extrasTotal), '', '', '', '']);
+      rows.push(['Total', inn.runs + (inn.wkts < 10 ? '/' + inn.wkts : ''), inn.overs + ' ov', '', '', '']);
+      const bt = table(['Batter', 'R', 'B', '4s', '6s', 'SR'], rows);
+      const last = $$('tbody tr', bt); if (last.length) last[last.length - 1].classList.add('tot');
+      sec.appendChild(bt);
+      const dnb = inn.batters.filter(b => !b.in).map(b => b.short);
+      if (dnb.length) sec.appendChild(el('p', '', 'Did not bat: ' + dnb.join(', ')));
+      if (inn.fow.length) sec.appendChild(el('p', '', 'Fall of wickets: ' + inn.fow.map(f => f.w + '-' + f.runs + ' (' + f.name + ', ' + f.over + ' ov)').join(', ')));
+      if (inn.bowlers.length) sec.appendChild(table(['Bowler', 'O', 'M', 'R', 'W', 'Econ'], inn.bowlers.map(b => [b.name, b.overs, String(b.maidens), String(b.runs), String(b.wkts), String(b.econ)])));
+      root.appendChild(sec);
+    });
+  }
+  function setTab(t) {
+    state.tab = t;
+    $$('[data-tab]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.tab === t)));
+    $('#feed').hidden = t !== 'live'; $('#cards').hidden = t !== 'cards';
+    if (t === 'cards') renderCards();
+  }
+
+  /* ---------- result ---------- */
+  function showResult() {
+    const m = state.match, r = m.result, box = $('#resultbox'); clear(box); box.hidden = false;
+    box.appendChild(el('h2', '', r.text));
+    if (r.potm) box.appendChild(el('p', '', 'Player of the match: ' + r.potm.name + ' (' + r.potm.team + '), ' + r.potm.line + '.'));
+    const act = el('div', 'ctl-row');
+    DT.resultActions().forEach(([label, cls, fn]) => {
+      const b = el('button', 'btn ' + cls, label); b.type = 'button'; b.addEventListener('click', fn); act.appendChild(b);
+    });
+    box.appendChild(act);
+  }
+
+  /* ---------- wiring ---------- */
+  function init() {
+    loadSaved();
+    const legends = new Set(ALL_PLAYERS.map(p => p.key)).size;
+    $('#tagline').textContent = 'Pick two XIs from ' + legends + ' all-time greats. Their ratings decide a five-day Test, played over by over.';
+    $('#q').addEventListener('input', e => { state.query = e.target.value; renderPool(); });
+    $('#btn-quit').addEventListener('click', () => { if (state.back) state.back(); });
+    $('#btn-play').addEventListener('click', () => DT.ctl.toggle());
+    $('#btn-step').addEventListener('click', () => DT.ctl.step());
+    $$('[data-skip]').forEach(b => b.addEventListener('click', () => DT.ctl.skip(b.dataset.skip)));
+    $$('#speed button').forEach(b => b.addEventListener('click', () => DT.ctl.speed(b.dataset.speed)));
+    $('#chk-break').addEventListener('change', e => DT.ctl.pauseBreaks(e.target.checked));
+    $('#h-local').addEventListener('click', goSetup);
+    $$('[data-tab]').forEach(b => b.addEventListener('click', () => setTab(b.dataset.tab)));
+    renderSetup();
+    showView('home');
+  }
+  const localCtl = {
+    toggle: () => setPlaying(!state.playing), step: stepOnce, skip,
+    speed: sp => { state.speed = sp; updateControls(); },
+    pauseBreaks: v => { state.pauseBreaks = v; }
+  };
+  const DT = {
+    $, $$, el, clear, state, showView, goHome, addEvents, refresh, updateControls, setTab, showResult, launchMatch,
+    describe, statLine, strength, teamLabel, ctl: localCtl, localCtl,
+    resultActions: () => [['Rematch', 'primary', () => launch()], ['View scorecard', '', () => setTab('cards')], ['Pick new teams', '', quit]]
+  };
+  DT.defaultResultActions = DT.resultActions;
+  window.DT = DT;
+  init();
+})();
+
+;
+// online.js: rooms, snake draft, batting order, toss and the synced match. Uses DT from app.js.
+(function () {
+  'use strict';
+  const { $, $$, el, clear, state, showView, goHome, refresh, updateControls, setTab, showResult, launchMatch, describe, statLine, strength } = DT;
+
+  const PID_KEY = 'dreamtest.pid', NAME_KEY = 'dreamtest.name', ROOM_KEY = 'dreamtest.room', LEFT_KEY = 'dreamtest.left';
+  const DELAY = { slow: 1500, normal: 650, fast: 150 };
+  const FILTERS = [['all', 'All'], ['opener', 'Openers'], ['batter', 'Batters'], ['wk', 'Keepers'], ['allrounder', 'All-rounders'], ['spinner', 'Spinners'], ['pacer', 'Pacers']];
+  const lsGet = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+  const lsSet = (k, v) => { try { if (v == null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) { /* ignore */ } };
+  const randId = n => { const c = 'abcdefghijklmnopqrstuvwxyz0123456789'; let s = ''; for (let i = 0; i < n; i++) s += c[Math.floor(Math.random() * c.length)]; return s; };
+
+  let pid = lsGet(PID_KEY);
+  if (!pid) { pid = randId(20); lsSet(PID_KEY, pid); }
+
+  let room = null, offset = 0, writing = 0, pollTimer = null;
+  let ui = { sel: null, filter: 'all', query: '', pane: 'pool', order: null, orderRound: -1, orderSent: false };
+  let match = null, timeline = [], steps = 0, matchRound = -1, loopTimer = null, shownResult = false;
+  let netDown = false, toastTimer = null;
+
+  const serverNow = () => Date.now() + offset;
+  const sideName = side => { const p = room.players.find(x => x.side === side); return p ? p.name : 'Player'; };
+  const teamName = side => sideName(side) + "'s XI";
+  const tcls = side => (side === 'A' ? 't0' : 't1');
+  const squadIds = side => room.picks.filter((_, i) => draftSide(i) === side);
+  const squadOf = side => squadIds(side).map(id => PLAYER_BY_ID[id]);
+
+  /* ---------- talking to the server ---------- */
+  async function api(op, extra) {
+    const body = Object.assign({ op, pid }, room ? { code: room.code } : {}, extra || {});
+    const t0 = Date.now();
+    let r;
+    try { r = await fetch('/api/room', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }); }
+    catch (e) { throw new Error('offline'); }
+    let j;
+    try { j = await r.json(); } catch (e) { throw new Error('The server sent a reply the game could not read.'); }
+    const t1 = Date.now();
+    if (!r.ok) { const err = new Error(j.error || 'Request failed.'); err.status = r.status; err.storage = j.storage; throw err; }
+    if (j.now) offset = j.now - (t0 + t1) / 2;
+    return j;
+  }
+  function errText(e) {
+    if (e.storage === false) return 'Online rooms are not switched on yet. The site owner needs to connect a Redis database to this project in Vercel.';
+    if (e.message === 'offline') return 'Could not reach the server. Check your connection and try again.';
+    return e.message || 'Something went wrong.';
+  }
+  function flash(text, ms) {
+    const n = $('#netmsg'); n.textContent = text; n.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { n.hidden = !netDown; if (netDown) n.textContent = 'Connection lost. Retrying...'; }, ms || 3500);
+  }
+  function netFail() { if (!netDown) { netDown = true; const n = $('#netmsg'); n.textContent = 'Connection lost. Retrying...'; n.hidden = false; } }
+  function netOk() { if (netDown) { netDown = false; $('#netmsg').hidden = true; } }
+
+  /* ---------- home ---------- */
+  const nameVal = () => { const v = $('#h-name').value.trim().slice(0, 16); lsSet(NAME_KEY, v); return v; };
+  function homeMsg(t, info) { const m = $('#h-msg'); m.textContent = t || ''; m.hidden = !t; m.className = 'status' + (info ? '' : ' bad'); }
+  function rejoinHint(code) { $('#h-code').value = code; homeMsg('You left room ' + code + '. Press Join room to go back in.', true); }
+  async function createRoom() {
+    homeMsg(''); $('#h-create').disabled = true;
+    try { const j = await api('create', { name: nameVal() }); enter(j.state); }
+    catch (e) { homeMsg(errText(e)); }
+    $('#h-create').disabled = false;
+  }
+  async function joinRoom() {
+    homeMsg('');
+    const code = $('#h-code').value.trim().toUpperCase();
+    if (code.length < 4) { homeMsg('Enter the room code your friend gave you.'); return; }
+    $('#h-join').disabled = true;
+    try { const j = await api('join', { code, name: nameVal() }); enter(j.state); }
+    catch (e) {
+      homeMsg(errText(e));
+      if (e.status === 404 && lsGet(ROOM_KEY) === code) { lsSet(ROOM_KEY, null); lsSet(LEFT_KEY, null); }
+    }
+    $('#h-join').disabled = false;
+  }
+  function enter(s) {
+    room = s; lsSet(ROOM_KEY, s.code); lsSet(LEFT_KEY, null);
+    ui = { sel: null, filter: 'all', query: '', pane: 'pool', order: null, orderRound: -1, orderSent: false };
+    history.replaceState(null, '', location.pathname);
+    schedule(900); render();
+  }
+  async function leave() {
+    clearTimeout(pollTimer); stopMatch();
+    const code = room && room.code, midGame = !!room && room.phase !== 'lobby';
+    if (room && room.phase === 'lobby') { try { await api('leave'); } catch (e) { /* ignore */ } }
+    // Leaving a game that is under way is not final: the code is kept so the player can step back in.
+    room = null; lsSet(ROOM_KEY, midGame ? code : null); lsSet(LEFT_KEY, midGame ? code : null); netOk();
+    showView('home'); homeMsg('');
+    if (midGame) rejoinHint(code);
+  }
+
+  /* ---------- polling ---------- */
+  function schedule(ms) { clearTimeout(pollTimer); pollTimer = setTimeout(poll, ms); }
+  async function poll() {
+    if (!room) return;
+    if (writing > 0) { schedule(300); return; }
+    try {
+      const j = await api('get', { v: room.v });
+      netOk();
+      if (!room) return;
+      if (j.state && writing === 0 && j.state.v >= room.v) adopt(j.state);
+    } catch (e) {
+      if (e.status === 404 || e.status === 403) { room = null; lsSet(ROOM_KEY, null); stopMatch(); showView('home'); homeMsg('That room has closed. Make a new one to keep playing.'); return; }
+      netFail();
+    }
+    if (room) schedule(room.phase === 'match' ? 1500 : 1000);
+  }
+  function adopt(s) { const changed = !room || s.v !== room.v; room = s; if (changed) render(); }
+  async function send(op, extra) {
+    writing++;
+    try { const j = await api(op, extra); if (j.state) adopt(j.state); return true; }
+    catch (e) { flash(errText(e)); return false; }
+    finally { writing--; }
+  }
+
+  /* ---------- render by phase ---------- */
+  function render() {
+    if (!room) return;
+    if (room.phase === 'match') { renderMatch(); return; }
+    stopMatch();
+    showView('room', { label: 'Leave room', fn: leave });
+    const root = $('#room-body');
+    const focus = document.activeElement && document.activeElement.id === 'dq' ? document.activeElement.selectionStart : null;
+    // Keep the player list where the user had scrolled it when the screen is rebuilt.
+    const oldList = room.phase === 'draft' ? $('.plist', root) : null, keepScroll = oldList ? oldList.scrollTop : 0;
+    clear(root);
+    $('#room').dataset.pane = ui.pane;
+    if (room.phase === 'lobby') renderLobby(root);
+    else if (room.phase === 'draft') renderDraft(root);
+    else if (room.phase === 'order') renderOrder(root);
+    else if (room.phase === 'toss') renderToss(root);
+    if (keepScroll) { const nl = $('.plist', root); if (nl) nl.scrollTop = keepScroll; }
+    if (focus != null) { const q = $('#dq'); if (q) { q.focus(); try { q.setSelectionRange(focus, focus); } catch (e) { /* ignore */ } } }
+  }
+
+  function renderLobby(root) {
+    const box = el('div', 'roombox');
+    box.appendChild(el('h2', '', 'Your room'));
+    const cb = el('div', 'codeboard');
+    cb.appendChild(el('span', 'muted', 'Room code'));
+    cb.appendChild(el('div', 'codebig', room.code));
+    const link = location.origin + location.pathname + '?room=' + room.code;
+    const lr = el('div', 'linkrow');
+    const inp = el('input'); inp.readOnly = true; inp.value = link; inp.id = 'invite'; inp.setAttribute('aria-label', 'Invite link');
+    inp.addEventListener('focus', () => inp.select());
+    const cp = el('button', 'btn sm', 'Copy invite link'); cp.type = 'button';
+    cp.addEventListener('click', () => {
+      const fallback = () => { inp.focus(); inp.select(); flash('Press copy on the selected link.'); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(link).then(() => flash('Invite link copied.'), fallback); else fallback();
+    });
+    lr.appendChild(inp); lr.appendChild(cp); cb.appendChild(lr);
+    box.appendChild(cb);
+    box.appendChild(el('p', '', 'Send your friend the code or the link. When they join, the host starts the draft.'));
+    const ul = el('ul', 'whos');
+    room.players.forEach((p, i) => { const li = el('li'); li.appendChild(el('span', '', p.name + (i === room.you ? ' (you)' : ''))); li.appendChild(el('span', 'muted', i === 0 ? 'Host' : 'Joined')); ul.appendChild(li); });
+    if (room.players.length < 2) ul.appendChild(el('li', 'wait', 'Waiting for your friend to join...'));
+    box.appendChild(ul);
+    box.appendChild(el('p', 'muted', 'The game picks at random who is Team A and who is Team B. Pick order: A, then B twice, A twice, B twice, and so on.'));
+    if (room.isHost) {
+      const b = el('button', 'btn primary big', 'Start the draft'); b.type = 'button'; b.disabled = room.players.length < 2;
+      b.addEventListener('click', () => send('start')); box.appendChild(b);
+    } else box.appendChild(el('p', 'status', 'Waiting for ' + room.players[0].name + ' to start the draft.'));
+    root.appendChild(box);
+  }
+
+  /* ----- draft ----- */
+  function squadCard(side, opts) {
+    const ids = opts.ids || squadIds(side), players = ids.map(id => PLAYER_BY_ID[id]);
+    const card = el('div', 'squad');
+    const head = el('div', 'squad-head');
+    head.appendChild(el('span', 'swatch ' + tcls(side)));
+    const nm = el('h2', 'tname-static', teamName(side));
+    nm.style.cssText = 'font:800 1.5rem/1.1 var(--display);flex:1;min-width:0';
+    head.appendChild(nm);
+    if (room.mySide === side) head.appendChild(el('span', 'you', 'You'));
+    head.appendChild(el('span', 'cnt', players.length + '/11'));
+    card.appendChild(head);
+    card.appendChild(el('p', 'order-h', 'Team ' + side + (opts.order ? '. Batting order, first two open.' : '. In pick order.')));
+    const ul = el('ul', 'slots');
+    for (let k = 0; k < 11; k++) {
+      const p = players[k];
+      const li = el('li', 'slot' + (p ? '' : ' empty'));
+      li.appendChild(el('span', 'no', String(k + 1)));
+      const mid = el('div');
+      if (p) { mid.appendChild(el('span', 'sname', p.name)); mid.appendChild(el('span', 'ssub', describe(p))); } else mid.appendChild(el('span', 'sname', 'Open slot'));
+      li.appendChild(mid);
+      if (p) {
+        li.appendChild(el('span', 'srate', String(p.rating)));
+        if (opts.move) {
+          const act = el('div', 'sact');
+          [['▲', 'Move up', -1, k === 0], ['▼', 'Move down', 1, k === players.length - 1]].forEach(([ch, label, dir, dis]) => {
+            const b = el('button', 'iconbtn', ch); b.type = 'button'; b.disabled = dis; b.setAttribute('aria-label', label + ' ' + p.name);
+            b.addEventListener('click', () => opts.move(k, dir)); act.appendChild(b);
+          });
+          li.appendChild(act);
+        } else li.appendChild(el('span'));
+      } else { li.appendChild(el('span')); li.appendChild(el('span')); }
+      ul.appendChild(li);
+    }
+    card.appendChild(ul);
+    const s = strength(players), meters = el('div', 'meters');
+    [['Batting', s.bat], ['Bowling', s.bowl]].forEach(([n, val]) => {
+      const m = el('div', 'meter ' + tcls(side)); m.appendChild(el('span', '', n));
+      const bar = el('div', 'bar'), fill = el('i'); fill.style.width = Math.max(0, Math.min(100, val)) + '%'; bar.appendChild(fill); m.appendChild(bar);
+      m.appendChild(el('b', '', val ? String(val) : '-')); meters.appendChild(m);
+    });
+    card.appendChild(meters);
+    if (opts.needs) {
+      const left = 11 - players.length, needK = players.some(p => p.role === 'wk') ? 0 : 1, needB = Math.max(0, 4 - players.filter(canBowl).length);
+      const bits = [];
+      if (needK) bits.push('a keeper'); if (needB) bits.push(needB + ' bowling option' + (needB === 1 ? '' : 's'));
+      card.appendChild(el('p', 'status ' + (bits.length ? 'bad' : 'ok'), left === 0 ? 'XI complete.' : bits.length ? 'Still needs ' + bits.join(' and ') + '.' : 'Keeper and bowlers covered.'));
+    }
+    return card;
+  }
+
+  function renderDraft(root) {
+    const n = room.picks.length, mine = room.mySide;
+    const turn = n < 22 ? draftSide(n) : null, myTurn = turn === mine;
+    // status bar
+    const bar = el('div', 'draftbar');
+    bar.appendChild(el('div', 'who' + (myTurn ? ' me' : ''), myTurn ? 'Your pick' : sideName(turn) + ' is picking'));
+    bar.appendChild(el('div', 'sub', 'Pick ' + Math.min(n + 1, 22) + ' of 22. You are Team ' + mine + ', ' + teamName(mine) + '.'));
+    const sel = ui.sel && PLAYER_BY_ID[ui.sel] && !takenKey(PLAYER_BY_ID[ui.sel].key) ? PLAYER_BY_ID[ui.sel] : null;
+    if (!sel) ui.sel = null;
+    const cf = el('div', 'confirm');
+    if (myTurn && sel) {
+      cf.appendChild(el('span', '', 'Pick ' + sel.name + '?'));
+      const ok = el('button', 'btn primary sm', 'Confirm pick'); ok.type = 'button';
+      ok.addEventListener('click', async () => { ok.disabled = true; const id = sel.id; ui.sel = null; await send('pick', { id }); });
+      const no = el('button', 'btn sm', 'Cancel'); no.type = 'button'; no.addEventListener('click', () => { ui.sel = null; render(); });
+      cf.appendChild(ok); cf.appendChild(no);
+    } else cf.appendChild(el('span', 'sub', myTurn ? 'Tap a player, then confirm.' : 'You can look through the list and tap a player to plan your next pick.'));
+    bar.appendChild(cf);
+    const sn = el('div', 'snake'); sn.setAttribute('aria-hidden', 'true');
+    for (let i = 0; i < 22; i++) sn.appendChild(el('i', tcls(draftSide(i)) + (i < n ? ' done' : '') + (i === n ? ' now' : '')));
+    bar.appendChild(sn);
+    root.appendChild(bar);
+
+    // mobile section switch
+    const nav = el('nav', 'panes'); nav.setAttribute('aria-label', 'Draft sections');
+    [['a', teamName('A') + ' ' + squadIds('A').length], ['pool', 'Players'], ['b', teamName('B') + ' ' + squadIds('B').length]].forEach(([id, label]) => {
+      const b = el('button', '', label); b.type = 'button'; b.setAttribute('aria-pressed', String(ui.pane === id));
+      b.addEventListener('click', () => { ui.pane = id; render(); }); nav.appendChild(b);
+    });
+    root.appendChild(nav);
+
+    const grid = el('div', 'grid');
+    const pa = el('section', 'pane pane-a'); pa.appendChild(squadCard('A', { needs: true })); grid.appendChild(pa);
+
+    const pp = el('section', 'pane pane-pool');
+    const ph = el('div', 'pool-head'); ph.appendChild(el('h2', '', 'Players')); pp.appendChild(ph);
+    const fl = el('div', 'filters');
+    FILTERS.forEach(([id, label]) => {
+      const cnt = id === 'all' ? ALL_PLAYERS.length : ALL_PLAYERS.filter(p => p.role === id).length;
+      const b = el('button', '', label + ' ' + cnt); b.type = 'button'; b.setAttribute('aria-pressed', String(ui.filter === id));
+      b.addEventListener('click', () => { ui.filter = id; render(); }); fl.appendChild(b);
+    });
+    pp.appendChild(fl);
+    const sl = el('label', 'search'); sl.appendChild(el('span', 'sr', 'Search players'));
+    const qi = el('input'); qi.id = 'dq'; qi.type = 'search'; qi.placeholder = 'Search by name'; qi.autocomplete = 'off'; qi.value = ui.query;
+    qi.addEventListener('input', () => { ui.query = qi.value; render(); });
+    sl.appendChild(qi); pp.appendChild(sl);
+    const ul = el('ul', 'plist');
+    const q = ui.query.trim().toLowerCase();
+    let list = ALL_PLAYERS.filter(p => (ui.filter === 'all' || p.role === ui.filter) && (!q || p.name.toLowerCase().includes(q)));
+    list = list.slice().sort((a, b) => ((takenKey(a.key) ? 1 : 0) - (takenKey(b.key) ? 1 : 0)) || (ui.filter === 'all' ? (b.rating - a.rating || a.name.localeCompare(b.name)) : 0));
+    if (!list.length) ul.appendChild(el('li', 'empty-list', 'No players match. Clear the search or pick another role.'));
+    const mineIds = squadIds(mine);
+    list.forEach(p => {
+      const li = el('li'), taken = takenKey(p.key);
+      const why = !taken && myTurn ? draftBlock(mineIds, p) : '';
+      const b = el('button', 'prow' + (ui.sel === p.id ? ' sel' : '')); b.type = 'button'; b.disabled = !!taken || !!why;
+      b.appendChild(el('span', 'prate', String(p.rating)));
+      const mid = el('span'); mid.appendChild(el('span', 'pname', p.name)); mid.appendChild(el('span', 'psub', describe(p))); b.appendChild(mid);
+      if (taken) b.appendChild(el('span', 'ptag ' + tcls(taken), teamName(taken)));
+      else if (why) b.appendChild(el('span', 'pstat bad', why));
+      else b.appendChild(el('span', 'pstat', statLine(p)));
+      b.addEventListener('click', () => { ui.sel = p.id; render(); });
+      li.appendChild(b); ul.appendChild(li);
+    });
+    pp.appendChild(ul); grid.appendChild(pp);
+
+    const pb = el('section', 'pane pane-b'); pb.appendChild(squadCard('B', { needs: true })); grid.appendChild(pb);
+    root.appendChild(grid);
+  }
+  function takenKey(key) {
+    for (const side of ['A', 'B']) if (squadOf(side).some(p => p.key === key)) return side;
+    return null;
+  }
+
+  /* ----- batting order ----- */
+  function renderOrder(root) {
+    const mine = room.mySide, other = mine === 'A' ? 'B' : 'A';
+    if (ui.orderRound !== room.round) {
+      const saved = room.orders && room.orders[mine];
+      ui.order = saved ? saved.slice() : autoOrder(squadOf(mine)).map(p => p.id);
+      ui.orderRound = room.round; ui.orderSent = !!(room.players[room.you] && room.players[room.you].ready);
+    }
+    const iAmReady = !!room.players[room.you].ready;
+    const head = el('div', 'roombox');
+    head.appendChild(el('h2', '', 'Set your batting order'));
+    head.appendChild(el('p', '', 'The first two in your list open the batting. Move players with the arrows, then press Ready. The toss happens when both of you are ready.'));
+    root.appendChild(head);
+    const grid = el('div', 'grid2');
+    const mineCard = squadCard(mine, { ids: ui.order, order: true, move: iAmReady ? null : (k, dir) => { const j = k + dir; if (j < 0 || j > 10) return; const o = ui.order; const x = o[k]; o[k] = o[j]; o[j] = x; render(); } });
+    grid.appendChild(mineCard);
+    const oc = squadCard(other, {});
+    grid.appendChild(oc);
+    root.appendChild(grid);
+    const act = el('div', 'roombox'); act.style.marginTop = '18px';
+    if (!iAmReady) {
+      const b = el('button', 'btn primary big', 'Ready'); b.type = 'button';
+      b.addEventListener('click', async () => { b.disabled = true; await send('ready', { ids: ui.order }); });
+      act.appendChild(b);
+      const a = el('button', 'btn', 'Reset to suggested order'); a.type = 'button';
+      a.addEventListener('click', () => { ui.order = autoOrder(squadOf(mine)).map(p => p.id); render(); });
+      act.appendChild(a);
+    } else act.appendChild(el('p', 'status ok', 'You are ready. Waiting for ' + sideName(other) + '.'));
+    root.appendChild(act);
+  }
+
+  /* ----- toss ----- */
+  function renderToss(root) {
+    const t = room.toss, win = t.winner, iWin = win === room.mySide;
+    const box = el('div', 'tosscard');
+    box.appendChild(el('div', 'coin', win));
+    box.appendChild(el('h2', '', 'The toss'));
+    box.appendChild(el('p', 'big', sideName(win) + ' wins the toss.'));
+    const info = Engine.PITCHES[room.pitch];
+    const pc = el('div', 'pitchcard'); pc.appendChild(el('b', '', 'Pitch: ' + info.name)); pc.appendChild(el('p', 'muted', info.blurb + '. Rain ' + (room.weather ? 'may' : 'will not') + ' interrupt play.'));
+    box.appendChild(pc);
+    if (iWin) {
+      box.appendChild(el('p', '', 'Choose what your side does first.'));
+      const row = el('div', 'ctl-row');
+      [['Bat first', true, true], ['Bowl first', false, false]].forEach(([label, bat, primary]) => {
+        const b = el('button', 'btn big' + (primary ? ' primary' : ''), label); b.type = 'button';
+        b.addEventListener('click', async () => { $$('button', row).forEach(x => { x.disabled = true; }); await send('tosschoice', { bat }); });
+        row.appendChild(b);
+      });
+      box.appendChild(row);
+    } else box.appendChild(el('p', 'status', 'Waiting for ' + sideName(win) + ' to choose bat or bowl.'));
+    root.appendChild(box);
+  }
+
+  /* ---------- synced match ---------- */
+  function teamFor(side) {
+    return { name: teamName(side), players: room.orders[side].map(id => PLAYER_BY_ID[id]) };
+  }
+  function renderMatch() {
+    if (!match || matchRound !== room.round) startMatch();
+  }
+  function startMatch() {
+    stopMatch();
+    const A = teamFor('A'), B = teamFor('B');
+    const firstSide = room.toss.bat ? room.toss.winner : (room.toss.winner === 'A' ? 'B' : 'A');
+    const mk = () => new Engine.Match(A, B, { seed: room.seed, pitch: room.pitch, firstBat: firstSide === 'A' ? 0 : 1, weather: room.weather });
+    // The same seed gives the same match on every device. A scratch copy maps out where the breaks fall.
+    const scratch = mk(); timeline = [];
+    for (let g = 0; g < 6000 && !scratch.finished; g++) {
+      const out = scratch.step();
+      timeline.push({
+        stop: out.some(e => e.t === 'break' || e.t === 'inningsEnd' || e.t === 'result'),
+        stumps: out.some(e => (e.t === 'break' && e.kind === 'stumps') || e.t === 'result'),
+        inn: out.some(e => e.t === 'inningsEnd' || e.t === 'result')
+      });
+    }
+    match = mk(); steps = 0; matchRound = room.round; shownResult = false;
+    launchMatch(match, { label: 'Leave room', fn: leave });
+    DT.ctl = onlineCtl; DT.resultActions = onlineResultActions;
+    const ri = $('#roominfo'); ri.hidden = false; clear(ri);
+    ri.appendChild(document.createTextNode('Room '));
+    ri.appendChild(el('b', '', room.code));
+    ri.appendChild(document.createTextNode('. You are ' + teamName(room.mySide) + ' (Team ' + room.mySide + '). Pause, speed and skips are shared, so either of you can use them.'));
+    loopTimer = setInterval(loop, 100);
+    loop();
+  }
+  function stopMatch() {
+    clearInterval(loopTimer); loopTimer = null; match = null; matchRound = -1;
+    DT.ctl = DT.localCtl; DT.resultActions = DT.defaultResultActions;
+    const ri = $('#roominfo'); if (ri) ri.hidden = true;
+  }
+  const nextStop = from => { for (let k = from; k < timeline.length; k++) if (timeline[k].stop) return k + 1; return null; };
+  const nextFlag = (from, flag) => { for (let k = from; k < timeline.length; k++) if (timeline[k][flag]) return k + 1; return timeline.length; };
+  function target() {
+    const s = room.sync; if (!s) return 0;
+    let T = s.cursor;
+    if (s.playing) { const e = serverNow() - s.since; if (e > 0) T += Math.floor(e / DELAY[s.speed]); }
+    if (s.pauseBreaks) { const h = nextStop(s.cursor); if (h != null && h < T) T = h; }
+    return Math.min(T, timeline.length);
+  }
+  function loop() {
+    if (!match || !room || room.phase !== 'match' || !room.sync) return;
+    const T = target();
+    if (steps < T) {
+      const evs = []; let n = 0;
+      while (steps < T && !match.finished) { const out = match.step(); steps++; n++; for (const e of out) evs.push(e); }
+      DT.addEvents(evs, n > 4);
+      refresh();
+    }
+    const s = room.sync, h = s.pauseBreaks ? nextStop(s.cursor) : null;
+    const halted = s.playing && h != null && steps >= h;
+    state.playing = s.playing && !match.finished && !halted && steps < timeline.length;
+    state.speed = s.speed; state.pauseBreaks = s.pauseBreaks;
+    updateControls();
+    if (match.finished && !shownResult) { shownResult = true; showResult(); }
+  }
+  function write(patch) {
+    if (!room || !room.sync) return;
+    room.sync = Object.assign({}, room.sync, patch, { since: serverNow() });
+    send('sync', { patch });
+  }
+  const onlineCtl = {
+    toggle() { write({ playing: !state.playing, cursor: target() }); },
+    step() { write({ playing: false, cursor: Math.min(target() + 1, timeline.length) }); },
+    skip(kind) {
+      const T = target();
+      const idx = kind === 'end' ? timeline.length : nextFlag(T, kind === 'session' ? 'stop' : kind === 'day' ? 'stumps' : 'inn');
+      write({ playing: false, cursor: idx });
+    },
+    speed(sp) { write({ speed: sp, cursor: target(), playing: room.sync.playing }); },
+    pauseBreaks(v) { write({ pauseBreaks: v, cursor: target(), playing: room.sync.playing }); }
+  };
+  const onlineResultActions = () => [
+    ['Play again with new sides', 'primary', () => send('again')],
+    ['View scorecard', '', () => setTab('cards')],
+    ['Leave room', '', leave]
+  ];
+
+  /* ---------- start up ---------- */
+  async function resume() {
+    const q = new URLSearchParams(location.search).get('room');
+    if (q) { $('#h-code').value = q.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 5); return; }
+    const code = lsGet(ROOM_KEY);
+    if (!code) return;
+    if (lsGet(LEFT_KEY) === code) { rejoinHint(code); return; }
+    try { const j = await api('join', { code, name: nameVal() }); enter(j.state); }
+    catch (e) { if (e.status === 404 || e.status === 403 || e.status === 400) lsSet(ROOM_KEY, null); }
+  }
+  function init() {
+    $('#h-name').value = lsGet(NAME_KEY) || '';
+    $('#h-create').addEventListener('click', createRoom);
+    $('#h-join').addEventListener('click', joinRoom);
+    $('#h-code').addEventListener('input', e => { e.target.value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, ''); });
+    $('#h-code').addEventListener('keydown', e => { if (e.key === 'Enter') joinRoom(); });
+    resume();
+  }
+  init();
+})();
+
+</script>
+</body>
+</html>
