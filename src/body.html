@@ -1,0 +1,99 @@
+<div class="app">
+  <header class="mast">
+    <div class="brand">
+      <svg class="ball" viewBox="0 0 40 40" width="40" height="40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="currentColor"/><path d="M7 11c6 5 6 13 0 18M33 11c-6 5-6 13 0 18" fill="none" style="stroke:var(--on-ball)" stroke-width="1.6" stroke-dasharray="2.5 2.5" stroke-linecap="round"/></svg>
+      <div><h1>Dream Test XI</h1><p class="tag" id="tagline"></p></div>
+    </div>
+    <button class="btn sm" id="btn-quit" type="button" hidden>Back</button>
+  </header>
+
+  <p class="netmsg" id="netmsg" role="status" hidden></p>
+
+  <main>
+    <section id="home">
+      <div class="home-grid">
+        <div class="homecard main">
+          <h2>Play online with a friend</h2>
+          <p class="muted">Each of you opens this page on your own device. The game draws sides at random and you take turns picking players in a snake draft. Team A picks 1, Team B picks 2, then A, B and so on until both XIs are full. Then comes the toss, and you both watch the same match, over by over.</p>
+          <label class="field"><span>Your name</span><input id="h-name" type="text" maxlength="16" placeholder="Your name" autocomplete="nickname"></label>
+          <div><button class="btn primary big" id="h-create" type="button">Create a room</button></div>
+          <p class="or">or join your friend's room</p>
+          <div class="joinrow">
+            <input class="codein" id="h-code" type="text" maxlength="5" placeholder="CODE" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Room code">
+            <button class="btn" id="h-join" type="button">Join room</button>
+          </div>
+          <p class="status bad" id="h-msg" hidden></p>
+        </div>
+        <div class="homecard">
+          <h2>Play on this device</h2>
+          <p class="muted">Pick both XIs yourself from the full list of legends, set the pitch and the toss, and run a Test. No room needed.</p>
+          <div><button class="btn big" id="h-local" type="button">Pick two XIs</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="setup" class="paned" data-pane="pool" hidden>
+      <p class="note" id="example-note" hidden>Two example squads are loaded. Swap players, auto-pick, or press Start the Test to play them as they are.</p>
+      <nav class="panes" id="panes" aria-label="Setup sections"></nav>
+      <div class="grid">
+        <section class="pane pane-a" id="pane-a"></section>
+        <section class="pane pane-pool" id="pane-pool">
+          <div class="pool-head"><h2>Players</h2><div class="seg" id="target" role="group" aria-label="Add players to"></div></div>
+          <div class="filters" id="filters" role="group" aria-label="Filter by role"></div>
+          <label class="search"><span class="sr">Search players</span><input id="q" type="search" placeholder="Search by name" autocomplete="off"></label>
+          <ul class="plist" id="plist"></ul>
+        </section>
+        <section class="pane pane-b" id="pane-b"></section>
+        <section class="pane pane-match" id="pane-match"></section>
+      </div>
+    </section>
+
+    <section id="room" class="paned" data-pane="pool" hidden>
+      <div id="room-body"></div>
+    </section>
+
+    <section id="match" hidden>
+      <p class="roominfo" id="roominfo" hidden></p>
+      <div class="board" id="board">
+        <div class="board-main">
+          <div class="bteam" id="bt0"><div class="bname"><span></span></div><div class="bscore"></div></div>
+          <div class="bmid"><div class="bday" id="bday"></div><div class="bsess" id="bsess"></div><div class="bleft" id="bleft"></div></div>
+          <div class="bteam right" id="bt1"><div class="bname"><span></span></div><div class="bscore"></div></div>
+        </div>
+        <div class="board-foot"><span id="bsit"></span><span id="bpitch"></span></div>
+        <div class="pips" id="pips" aria-hidden="true"></div>
+      </div>
+      <div class="crease" id="crease" hidden>
+        <div><h3>At the crease</h3><div id="cr-bat"></div></div>
+        <div><h3>Bowling</h3><div id="cr-bowl"></div></div>
+        <div><h3>Innings</h3><div id="cr-meta"></div></div>
+      </div>
+      <div class="controls">
+        <div class="ctl-row">
+          <button class="btn primary" id="btn-play" type="button">Pause</button>
+          <button class="btn" id="btn-step" type="button">Next over</button>
+          <div class="seg" id="speed" role="group" aria-label="Speed">
+            <button type="button" data-speed="slow" aria-pressed="false">Slow</button>
+            <button type="button" data-speed="normal" aria-pressed="true">Normal</button>
+            <button type="button" data-speed="fast" aria-pressed="false">Fast</button>
+          </div>
+        </div>
+        <div class="ctl-row">
+          <span class="lbl">Skip to</span>
+          <button class="btn sm" type="button" data-skip="session">Next break</button>
+          <button class="btn sm" type="button" data-skip="day">Stumps</button>
+          <button class="btn sm" type="button" data-skip="innings">End of innings</button>
+          <button class="btn sm" type="button" data-skip="end">Result</button>
+          <label class="chk"><input type="checkbox" id="chk-break" checked> Pause at breaks</label>
+        </div>
+      </div>
+      <div id="resultbox" class="resultbox" hidden></div>
+      <div class="tabs" role="group" aria-label="View">
+        <button type="button" data-tab="live" aria-pressed="true">Commentary</button>
+        <button type="button" data-tab="cards" aria-pressed="false">Scorecard</button>
+      </div>
+      <div id="feed" class="feed"></div>
+      <div id="cards" class="cards" hidden></div>
+    </section>
+  </main>
+</div>
