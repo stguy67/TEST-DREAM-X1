@@ -1,0 +1,11 @@
+{
+  "name": "dream-test-xi",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Draft two all-time Test XIs with a friend and watch the same five-day Test, over by over.",
+  "engines": { "node": "22.x" },
+  "scripts": {
+    "dev": "node local-server.js",
+    "bundle": "node build.js"
+  }
+}
